@@ -21,6 +21,7 @@ from django.conf import settings
 from django.views.generic import RedirectView
 
 from movie.views import register
+from movie.views import index
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -32,8 +33,7 @@ urlpatterns = [
 if settings.DEBUG:
     Iuno.attachDebugURLs(settings, urlpatterns)
 
-# Django CMS
 urlpatterns += patterns('',
-        url(r'', include('cms.urls')),
         url(r'register',register),
+        url(r'', index)
 )

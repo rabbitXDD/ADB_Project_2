@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'movie',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,10 +65,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
-                # django cms
-                'sekizai.context_processors.sekizai',
-                'cms.context_processors.cms_settings',
             ],
         },
     },
@@ -109,48 +106,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-# Django CMS
-INSTALLED_APPS += (
-    'cms',
-    'menus',
-    'sekizai',
-    'djangocms_text_ckeditor',
-    'filer',
-    'easy_thumbnails',
-    'cmsplugin_filer_image',
-    'djangocms_snippet',
-    'django.contrib.sites',
-    'cmsplugin_filer_file',
-    'cmsplugin_filer_folder',
-
-    # djangocms-page-meta
-    'meta',
-    'djangocms_page_meta',
-    'treebeard',
-
-    # project 2
-    'movie',
-)
-
-
-MIDDLEWARE_CLASSES += (
-    'django.middleware.locale.LocaleMiddleware',
-    'cms.middleware.utils.ApphookReloadMiddleware',
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware'
-)
-
-THUMBNAIL_PROCESSORS = (
-    'easy_thumbnails.processors.colorspace',
-    'easy_thumbnails.processors.autocrop',
-    #'easy_thumbnails.processors.scale_and_crop',
-    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
-    'easy_thumbnails.processors.filters',
-)
-
 import Iuno
 
 
@@ -183,7 +138,5 @@ DATABASES = {
 DATABASE_ENGINE = 'mysql'
 
 Iuno.attachSettings(locals())
-
-CMS_TEMPLATES = [('index.html', 'index.html')]
 
 SITE_ID = 1
