@@ -1,0 +1,10 @@
+#----------------------------------------------------------------------------
+# EMBER-CLI DEFAULT
+#----------------------------------------------------------------------------
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# local database
+mysite/db.sqlite3
+mysite/debug.log
+mysite/mysite/settings.py
+*.pyc 
