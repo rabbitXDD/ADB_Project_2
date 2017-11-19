@@ -20,11 +20,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
 
+from movie.views import register
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 ]
 
-# put this before django-cms urls, 
+# put this before django-cms urls,
 # see https://stackoverflow.com/questions/22705939/
 # django-debug-toolbar-shows-up-but-the-panels-return-404
 if settings.DEBUG:
@@ -32,5 +34,6 @@ if settings.DEBUG:
 
 # Django CMS
 urlpatterns += patterns('',
-        url(r'', include('cms.urls'))
+        url(r'', include('cms.urls')),
+        url(r'register',register),
 )
