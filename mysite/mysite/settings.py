@@ -140,3 +140,5 @@ DATABASE_ENGINE = 'mysql'
 Iuno.attachSettings(locals())
 
 SITE_ID = 1
+
+AUTH_USER_MODEL = 'movie.User'

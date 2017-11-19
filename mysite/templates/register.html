@@ -1,31 +1,97 @@
 {% extends "base.html" %}
 {% block empty %}
+<style>
+  #signin_username {
+    margin-right: 25px;
+  }
+  #signin_username {
+    width: 48%;
+    margin: 7px auto;
+    color: #999;
+    background: none;
+    padding: 10px 10px;
+    outline: none;
+    border: 1px solid #999;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+  }
+
+  #signin_passwd {
+    margin-right: 25px;
+  }
+  #signin_passwd {
+    width: 48%;
+    margin: 7px auto;
+    color: #999;
+    background: none;
+    padding: 10px 10px;
+    outline: none;
+    border: 1px solid #999;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+  }
+
+  #signin_submit {
+    color: #ffffff;
+    padding: 9px 30px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 27px 0 0 0px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border: 2px solid #3598db;
+    background: #3598db;
+    transition:0.5s all;
+    -webkit-transition:0.5s all;
+    -moz-transition:0.5s all;
+    -o-transition:0.5s all;
+    -ms-transition:0.5s all;
+  }
+  #signin_submit:hover{
+    border: 2px solid #3598db;
+    background: transparent;
+    color:#3598db;
+  }
+
+</style>
 <div class="contact" id="contact">
   <div class="container">
     <div class="col-md-6 touch-left">
       <h3>Register</h3>
       <div class="touch-top toCenter">
 
-        <form>
-          <p><input onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Email"></p>
-          <p><input onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Password"></p>
-          <p><input onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="text" value="Name"></p>
-          <p><input onblur="if (this.value == '') {this.value = 'Birthday';}" onfocus="this.value = '';" type="date" value="Birthday"></p>
-          <p><input onblur="if (this.value == '') {this.value = 'PhoneNumber';}" onfocus="this.value = '';" type="text" value="PhoneNumber"></p>
+        <form action="/register" method="post">
+          {% csrf_token %}
+          
+          <p><input name="Email" onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Email"></p>
+          <p><input name="Password" onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Password"></p>
+          <p><input name="Name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="text" value="Name"></p>
+          <p><input name="Birthday" onblur="if (this.value == '') {this.value = 'Birthday';}" onfocus="this.value = '';" type="date" value="Birthday"></p>
+          <p><input name="PhoneNumber" onblur="if (this.value == '') {this.value = 'PhoneNumber';}" onfocus="this.value = '';" type="text" value="PhoneNumber"></p>
           <p><input type="submit" value="Register"></p>
 
         </form>
 
       </div>
     </div>
-    <div class="col-md-6 toCenter">
+    <div class="col-md-6 touch-right">
       <h3>Login</h3>
-      <div class="touch-top">
+      <div class="touch-top toCenter">
 
         <form>
-          <p><input onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Account"></p>
-          <p><input onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Password"></p>
-          <p><input type="submit" value="Log in"></p>
+          <p><input onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Account" id="signin_username"></p>
+          <p><input onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Password" id="signin_passwd"></p>
+          <p><input type="submit" value="Log in" id="signin_submit" ></p>
         </form>
         	
       </div>

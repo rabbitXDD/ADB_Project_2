@@ -1,3 +1,7 @@
+// 將您的設定放入此檔案中以覆寫預設值和使用者設定。
 {
-    "python.linting.pylintEnabled": false
+    //新增邊緣線
+    "editor.rulers": [80, 120],
+    "python.pythonPath": "/Users/Ming/.virtualenvs/ADB/bin/python",
+    "workbench.iconTheme": "vscode-great-icons"
 }
