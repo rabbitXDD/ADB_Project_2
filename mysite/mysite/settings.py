@@ -153,5 +153,33 @@ from Iuno import DEVELOPMENT, STAGE, PRODUCTION
 SERVER_MODE = Iuno.detectServerMode(locals())
 DEBUG = Iuno.detectDebug(locals())
 
+# -------------------------------------------------------------------------
+# remote mysql server db settings
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bookingmovie',
+        'AUTOCOMMIT': True, 
+        'ATOMIC_REQUESTS': True,
+        'CONN_MAX_AGE': 0, 
+        'TIME_ZONE': 'UTC', 
+        'OPTIONS': {
+            'init_command': 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED'
+        },
+        'HOST': '140.119.19.73', 
+        'USER': 'admin', 
+        'TEST': {
+             'COLLATION': None, 
+             'CHARSET': None, 
+             'NAME': None, 
+             'MIRROR': None
+        }, 
+        'PASSWORD': '12345678', 
+        'PORT': 3306
+    }
+}
+DATABASE_ENGINE = 'mysql'
+
 Iuno.attachSettings(locals())
 CMS_TEMPLATES = [('index.html', 'index.html')]
