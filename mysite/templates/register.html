@@ -88,9 +88,10 @@
       <h3>Login</h3>
       <div class="touch-top toCenter">
 
-        <form>
-          <p><input onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Account" id="signin_username"></p>
-          <p><input onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Password" id="signin_passwd"></p>
+        <form action="/login" method="post">
+          {% csrf_token %}
+          <p><input name="Name" onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Name" id="signin_username"></p>
+          <p><input name="Password" onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Password" id="signin_passwd"></p>
           <p><input type="submit" value="Log in" id="signin_submit" ></p>
         </form>
         	

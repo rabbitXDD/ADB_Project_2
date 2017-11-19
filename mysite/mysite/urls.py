@@ -22,6 +22,7 @@ from django.views.generic import RedirectView
 
 from movie.views import register
 from movie.views import index
+from movie.views import logoutUser, signin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -34,6 +35,8 @@ if settings.DEBUG:
     Iuno.attachDebugURLs(settings, urlpatterns)
 
 urlpatterns += patterns('',
-        url(r'register',register),
-        url(r'', index)
+        url(r'^register',register, name="register"),
+        url(r'^logout', logoutUser, name="logout"),
+        url(r'^login', signin, name="signin"),
+        url(r'', index),
 )

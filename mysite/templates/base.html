@@ -5,6 +5,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+{% load static %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -43,10 +44,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			 <span class="menu"><img src="images/nav-icon.png" alt=""/></span>
 			 <ul>
 				<li><a class="scroll" href="#home">Home</a></li>
-				<li><a class="scroll" href="#lr">登入/註冊</a></li>
-				<li></li>
 				<li><a class="scroll" href="#book">訂票</a></li>
-				<li><a class="scroll" href="#contact">聯絡我們</a></li>
+				<li style=" margin-right:0"><a class="scroll" href="#contact" style="margin-left:300px;">聯絡我們</a></li>
+				{% if request.user.is_authenticated %}
+					{% if user.is_staff or perms.partner.dashboard_access %}
+						<li><a href="#"><i class="icon-list-ul"></i> Dashboard </a></li>
+					{% endif %}
+					<li><a href="#">
+						<img src="{% static "images/user-icon.png" %}"></img>
+						{% if request.user.username %}
+							{{ request.user.username}}
+						{% else %}
+							{{ request.user.splitUserEmail.0}}
+						{% endif %}
+						
+						</a></li>    
+					<li><a id="logout_link" href="{% url 'logout' %}"><i class="icon-signout"></i> Logout </a></li>
+				{% else %}
+					<li><a class="" href="{% url 'register' %}">登入/註冊</a></li>
+				{% endif %}
+				
 			 </ul>
 		     <!-- script-for-menu -->
 				 <script>

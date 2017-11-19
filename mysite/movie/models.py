@@ -13,4 +13,5 @@ class User(AbstractUser):
     
     phoneNumber = models.CharField(max_length=200, validators=[phoneRegex], blank=True)
 
+
 # Create your models here.
