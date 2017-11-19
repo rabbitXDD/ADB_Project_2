@@ -32,7 +32,7 @@ tzlocal==1.2.2
 Unidecode==0.4.19
 
 # ============ pluginize for cms =============
-Zephyrus==2.8.2.10278
+#Zephyrus==2.8.2.10278
 
 # =========== djangocms-page-meta ============
 django-meta==1.4

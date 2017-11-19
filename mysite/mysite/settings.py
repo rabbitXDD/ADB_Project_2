@@ -91,6 +91,9 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+('en-us', 'English'),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -125,6 +128,9 @@ INSTALLED_APPS += (
     'meta',
     'djangocms_page_meta',
     'treebeard',
+
+    # project 2
+    'movie',
 )
 
 
@@ -147,11 +153,9 @@ THUMBNAIL_PROCESSORS = (
 
 import Iuno
 
-# Server mode and Debug mode
-from Iuno import DEVELOPMENT, STAGE, PRODUCTION
-
-SERVER_MODE = Iuno.detectServerMode(locals())
-DEBUG = Iuno.detectDebug(locals())
 
 Iuno.attachSettings(locals())
+
 CMS_TEMPLATES = [('index.html', 'index.html')]
+
+SITE_ID = 1
