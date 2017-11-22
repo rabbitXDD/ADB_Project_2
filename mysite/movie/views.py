@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from movie.models import User
 from django.contrib.auth import logout, login
 from django.contrib.auth import authenticate
+import MySQLdb
 
 # Create your views here.
 def index(request):

@@ -54,12 +54,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="#">
 						<img src="{% static "images/user-icon.png" %}"></img>
 						{% if request.user.username %}
-							{{ request.user.username}}
+              {% if user.is_staff %}
+							       {{ request.user.username}}
+              {% else %}
+                     <a href="/member">{{ request.user.username}}</a>
+              {% endif %}
 						{% else %}
-							{{ request.user.splitUserEmail.0}}
+              {% if user.is_staff %}
+                     <a href="/manager">{{ request.user.splitUserEmail.0}}</a>
+              {% else %}
+                     <a href="/member">{{ request.user.splitUserEmail.0}}</a>
+              {% endif %}
 						{% endif %}
-						
-						</a></li>    
+
+						</a></li>
 					<li><a id="logout_link" href="{% url 'logout' %}"><i class="icon-signout"></i> Logout </a></li>
 				{% else %}
 					<li style="margin-left:-43em;"><a class="scroll" href="#home" style="margin-left:-4em;">Home</a></li>
@@ -67,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li style=" margin-right:0"><a class="scroll" href="#contact" >聯絡我們</a></li>
 					<li><a class="" href="{% url 'register' %}">登入/註冊</a></li>
 				{% endif %}
-				
+
 			 </ul>
 		     <!-- script-for-menu -->
 				 <script>
