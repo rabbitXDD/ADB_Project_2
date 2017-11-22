@@ -13,7 +13,6 @@ def index(request):
 
 
 def register(request):
-    print request
     if request.method == 'POST':
         try:
             user = User.objects.create_user(
@@ -42,27 +41,28 @@ def register(request):
         return render(request,'register.html')
 
 def signin(request):
-    if request.method == 'GET':
-        context = {
-            }
-        return render(request, 'students/SigninPage.html', context)
-    elif request.method == 'POST':
-        username = request.POST['accountName']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
+    if request.method == 'POST':
+        user = authenticate(
+            username=request.POST['Name'], 
+            password=request.POST['Password'],
+        )
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return redirect('/students/')
+            return redirect('/')
         else:
             # Return an 'invalid login' error message.
             pass
 
-def logoutView(request):
+def logoutUser(request):
     logout(request)
     # Redirect to a success page.
+<<<<<<< HEAD
     return render(request, 'students/Index.html')
 def member(request):
     return render(request,'member.html')
 def manager(request):
     return render(request,'manager.html')
+=======
+    return redirect('/register')
+>>>>>>> face052384b93656bf8b37a94866887c657b9cd3
