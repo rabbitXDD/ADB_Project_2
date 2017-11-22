@@ -4,13 +4,18 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from movie.models import User
 from django.contrib.auth import logout, login
 from django.contrib.auth import authenticate
+import MySQLdb
+
+
+db = MySQLdb.connect(host="140.119.19.73",user="admin", passwd="12345678", db="bookingmovie")
+cursor = db.cursor()
+# cursor.execute("SELECT is_staff from movie_user where id = %s ",(id))
+# check_staff = cursor.fetchone()
+
 
 # Create your views here.
 def index(request):
     return render(request,'index.html')
-
-
-
 
 def register(request):
     if request.method == 'POST':
@@ -29,7 +34,6 @@ def register(request):
                 username=request.POST['Name'],
                 password=request.POST['Password'],
             )
-
             login(request, user)
             return redirect('/')
 
@@ -57,7 +61,7 @@ def signin(request):
 def logoutUser(request):
     logout(request)
     # Redirect to a success page.
-    return render(request, 'students/Index.html')
+    return render(request, 'index.html')
 def member(request):
     return render(request,'member.html')
 def manager(request):
