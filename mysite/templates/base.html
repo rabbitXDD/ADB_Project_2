@@ -43,12 +43,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 <div class="top-menu">
 			 <span class="menu"><img src="images/nav-icon.png" alt=""/></span>
 			 <ul>
-				<li><a class="scroll" href="#home">Home</a></li>
-				<li><a class="scroll" href="#book">訂票</a></li>
-				<li style=" margin-right:0"><a class="scroll" href="#contact" style="margin-left:300px;">聯絡我們</a></li>
+		
 				{% if request.user.is_authenticated %}
+					<li style=""><a class="scroll" href="#home" style="margin-left:-4em;">Home</a></li>
+					<li><a class="scroll" href="#book">訂票</a></li>
+					<li style=" margin-right:0"><a class="scroll" href="#contact" >聯絡我們</a></li>
 					{% if user.is_staff or perms.partner.dashboard_access %}
-						<li><a href="#"><i class="icon-list-ul"></i> Dashboard </a></li>
+						<li><a href="{% url "manager" %}" style="margin-left:19em;"><i class="icon-list-ul"></i> Dashboard </a></li>
 					{% endif %}
 					<li><a href="#">
 						<img src="{% static "images/user-icon.png" %}"></img>
@@ -61,6 +62,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</a></li>    
 					<li><a id="logout_link" href="{% url 'logout' %}"><i class="icon-signout"></i> Logout </a></li>
 				{% else %}
+					<li style="margin-left:-43em;"><a class="scroll" href="#home" style="margin-left:-4em;">Home</a></li>
+					<li><a class="scroll" href="#lr">訂票</a></li>
+					<li style=" margin-right:0"><a class="scroll" href="#contact" >聯絡我們</a></li>
 					<li><a class="" href="{% url 'register' %}">登入/註冊</a></li>
 				{% endif %}
 				

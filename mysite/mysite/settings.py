@@ -115,7 +115,7 @@ import Iuno
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bookingmovie',
+        'NAME': 'orm_booking_movie',
         'AUTOCOMMIT': True,
         'ATOMIC_REQUESTS': True,
         'CONN_MAX_AGE': 0,

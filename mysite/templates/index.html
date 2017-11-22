@@ -10,102 +10,98 @@
 			 <div class="clearfix"></div>
 		</div>
 </div>
-<!--Service-->
-<div id="lr" class="service">
-	 <div class="container">
-		 <h3>登入/註冊</h3>
-		 <div class="service-grids">
-		 <div class="icon-grids">
-			 <div class="col-md-12 futr-grid futr1">
-				  <div class="icon-pic">
-							<div class="icon text-center">
-							 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						 </div>
-				  </div>
-				  <div class="icon-info">
-						<h4><a href="#">立即註冊/登入</a></h4>
-						<p>立即註冊/登入，享受悠閒時光！</p>
-				  </div>
-				  <div class="clearfix"></div>
-			 </div>
-			 <div class="clearfix"></div>
-		 </div>
-		 </div>
-	 </div>
-</div>
+
+<script>
+	function showtimes(url) {
+		$.get( url, { name: "John", time: "2pm" } )
+			.done(function( data ) {
+				$("#showtimes_selection").append(data);
+			});
+	};
+	function showSeats(url){
+		$.get( url, { name: "John", time: "2pm" } )
+			.done(function( data ) {
+				$("#seats").append(data);
+			});
+	}
+
+</script>
 
 <!--gallery -->
-		<script src="static/js/jquery.chocolat.js"></script>
-		<!--light-box-files -->
-		<script type="text/javascript">
-		$(function() {
-			$('.moments-bottom a').Chocolat();
-		});
-		</script>
+<script src="static/js/jquery.chocolat.js"></script>
+<!--light-box-files -->
+<script type="text/javascript">
+$(function() {
+	$('.moments-bottom a').Chocolat();
+});
+</script>
 <!--gallery js-->
+
+{% if request.user.is_authenticated %}
+
+<form action="/booking" method="post">
+	{% csrf_token %}
 <div id="book" class="gallery">
 	 <div class="container">
-		 <h3>電影選擇</h3>
-         <div class="gallery-info">
-					 <form>
-					 <select>
-			  	 		<option>movie1</option>
-			  			<option>movie2</option>
-			  			<option>movie3</option>
-			 		 </select>
-				 </div>
-		 <h3>場次選擇</h3>
-		     <div class="gallery-info">
-		  		 <select>
-		  				<option>time1</option>
-		  				<option>time2</option>
-		  				<option>time3</option>
-		  		 </select>
+
+		<div class="gallery-info" id="movies_selection" style="display:block;">
+			<h3>電影選擇</h3>
+			{% for movie in movies %}
+				<div class="col-md-4">
+					<a href="#select_showtimes" onclick="showtimes('showtimes');$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll"> 
+						<img src ="{{movie.image}}" style="width:15em;height:12em;">
+					</a>
+					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
+				</div>
+			{% endfor %}
+			<!-- <div class="col-md-4">
+				<img src ="https://cf-char.zi.org.tw/wp-content/uploads/2017/08/1502983638-ab238df9ff7f25eb8cc54b9316ee7fee.jpg" style="width:15em;height:12em;">
+				<br><input type="checkbox" value="1" name="Product_1" style="display:None">
 			</div>
-			<h3>飲食/套餐選擇</h3>
-          <div class="gallery-info">
+			<div class="col-md-4">
+				<img src ="https://cf-char.zi.org.tw/wp-content/uploads/2017/08/1502983638-ab238df9ff7f25eb8cc54b9316ee7fee.jpg" style="width:15em;height:12em;">
+				<br><input type="checkbox" value="1" name="Product_1" style="display:None">
+			</div> -->
+		</div>
+		 	
+		
+		
+		<div class="gallery-info" id="showtimes_selection" style="display:block;">
+			<h3 id="select_showtimes">場次選擇</h3>
+		</div>
 
- 							<div class="col-md-4">
- 								<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL"><br><input type="checkbox" value="1" name="Product_1"> 商品 1
- 							</div>
- 							<div class="col-md-4">
- 								<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL"><br><input type="checkbox" value="2" name="Product_2"> 商品 2
- 							</div>
- 							<div class="col-md-4">
- 								<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL"><br><input type="checkbox" value="3" name="Product_3"> 商品 3
- 							</div>
-						</div>
-			<h3>座位選擇</h3>
-		      <div class="gallery-info">
-		      <img src="http://link.photo.pchome.com.tw/s13/ihtd/440/133074974811/">
+			
+		<div class="gallery-info" style="display:block;">
+			<h3 id="select_meals">飲食/套餐選擇</h3>
+			<div class="col-md-4">
+				<a href="#select_seats" onclick="$('#meal_1').prop('checked', true);" class="scroll"> 
+					<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL" style="width:15em;height:12em;">
+				</a>
+				<br><input type="checkbox" value="1" id="meal_1" name="meal">
+			</div>
 
-		  					 <div class="col-md-4">
-		  					 	<input type="radio" name="seat" value="A"> A
-		  					 </div>
-		  					 <div class="col-md-4">
-		  						 <input type="radio" name="seat" value="B"> B
-		  					 </div>
-		  					 <div class="col-md-4">
-		  						 <input type="radio" name="seat" value="C"> C
-		 						 </div>
-		 						 <div class="col-md-4">
-	  							 <input type="radio" name="seat" value="D"> D
-	  						 </div>
-							</form>
-					</div>
-			<div class="clearfix"> </div>
+		</div>
+
+		<div class="gallery-info" style="display:block;" id="seats" style="display:block;">
+			<h3 id="select_seats">座位選擇</h3>
+		</div>
+
+		<div class="clearfix"> </div>
 		</div>
 </div>
 
 <!---->
 <div id="blog" class="blog">
-	 <div class="container">
-		 <div class="banner-info">
-		 		<a href="#">完成訂票</a>
-	 	 </div>
-	 </div>
+	<div class="container">
+		<div class="banner-info">
+				<button type="submit">完成訂票</button>
+		 </div>
+	</div>
 </div>
 <!---->
+</form>
+
+
 <div class="map">
 	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script><div id='gmap_canvas' style='height:600px;width:2200px;'></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style><script type='text/javascript'>function init_map(){var myOptions = {zoom:17,center:new google.maps.LatLng(24.9873313,121.5761281),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(24.9873313,121.5761281)});infowindow = new google.maps.InfoWindow({content:'<strong>政治大學商學院五樓</strong><br>116台灣台北市文山區指南路二段64號<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
 	 <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6632.248000703498!2d151.265683!3d-33.7832959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12abc7edcbeb07%3A0x5017d681632bfc0!2sManly+Vale+NSW+2093%2C+Australia!5e0!3m2!1sen!2sin!4v1433329298259" style="border:0"></iframe> -->
@@ -144,5 +140,30 @@
 		  </div>
 	 </div>
 </div>
+{% else %}
+<!--Service-->
+<div id="lr" class="service">
+	<div class="container">
+		<h3>登入/註冊</h3>
+		<div class="service-grids">
+		<div class="icon-grids">
+			<div class="col-md-12 futr-grid futr1">
+				 <div class="icon-pic">
+						   <div class="icon text-center">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						</div>
+				 </div>
+				 <div class="icon-info">
+					   <h4><a href="{% url "register" %}">立即註冊/登入</a></h4>
+					   <p>立即註冊/登入，享受悠閒時光！</p>
+				 </div>
+				 <div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		</div>
+	</div>
+</div>
+{% endif %}
 
 {% endblock %}
