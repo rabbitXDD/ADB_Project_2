@@ -22,12 +22,9 @@ from django.views.generic import RedirectView
 
 from movie.views import register
 from movie.views import index
-<<<<<<< HEAD
 from movie.views import member
 from movie.views import manager
-=======
 from movie.views import logoutUser, signin
->>>>>>> face052384b93656bf8b37a94866887c657b9cd3
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -41,18 +38,10 @@ if settings.DEBUG:
     Iuno.attachDebugURLs(settings, urlpatterns)
 
 urlpatterns += patterns('',
-<<<<<<< HEAD
-
-    url(r'register',register),
-    url(r'member',member,),
-    url(r'manager',manager),
-    url(r'', index),
-
-
-=======
+        url(r'^member',member,name="member"),
+        url(r'^manager',manager,name="manager"),
         url(r'^register',register, name="register"),
         url(r'^logout', logoutUser, name="logout"),
         url(r'^login', signin, name="signin"),
         url(r'', index),
->>>>>>> face052384b93656bf8b37a94866887c657b9cd3
 )

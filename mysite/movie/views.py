@@ -43,7 +43,7 @@ def register(request):
 def signin(request):
     if request.method == 'POST':
         user = authenticate(
-            username=request.POST['Name'], 
+            username=request.POST['Name'],
             password=request.POST['Password'],
         )
         if user is not None:
@@ -57,12 +57,8 @@ def signin(request):
 def logoutUser(request):
     logout(request)
     # Redirect to a success page.
-<<<<<<< HEAD
     return render(request, 'students/Index.html')
 def member(request):
     return render(request,'member.html')
 def manager(request):
     return render(request,'manager.html')
-=======
-    return redirect('/register')
->>>>>>> face052384b93656bf8b37a94866887c657b9cd3
