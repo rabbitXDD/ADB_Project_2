@@ -22,9 +22,12 @@ from django.views.generic import RedirectView
 
 from movie.views import register
 from movie.views import index
+from movie.views import member
+from movie.views import manager
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
 ]
 
 # put this before django-cms urls,
@@ -34,6 +37,11 @@ if settings.DEBUG:
     Iuno.attachDebugURLs(settings, urlpatterns)
 
 urlpatterns += patterns('',
-        url(r'register',register),
-        url(r'', index)
+
+    url(r'register',register),
+    url(r'member',member,),
+    url(r'manager',manager),
+    url(r'', index),
+
+
 )

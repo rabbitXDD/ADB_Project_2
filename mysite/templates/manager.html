@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block empty %}
+
+<div class="contact" id="contact">
+  <div class="container">
+    <div class="col-md-8 touch-left">
+      <p> </p>
+      <h3>新增電影</h3>
+      <div class="touch-top toCenter">
+
+        <form action="/manager" method="post">
+
+          <p><input name="moive_name" onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Movie name"></p>
+          <p><input name="type" onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Type"></p>
+          <p><input name="runtime" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="text" value="Runtime"></p>
+          <p><input name="director" onblur="if (this.value == '') {this.value = 'Birthday';}" onfocus="this.value = '';" type="time" value="Director"></p>
+          <p><input name="actor" onblur="if (this.value == '') {this.value = 'PhoneNumber';}" onfocus="this.value = '';" type="text" value="Actor"></p>
+          <p><input type="submit" value="Submit"></p>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

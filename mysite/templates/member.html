@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block empty %}
+<h3>訂票紀錄</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Movie name</th>
+      <th>Showtimes</th>
+      <th>Seat</th>
+      <th>Meal/Combo</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="4"><hr> </td>
+    </tr>
+      <tr>
+        <td>
+          正義聯盟
+        </td>
+        <td>
+          1:10
+        </td>
+        <td>
+          A
+        </td>
+        <td>
+          爆米花
+        </td>
+        <td>
+          <input type="button" value="cancel">
+        </td>
+      </tr>
+
+  </tbody>
+
+</table>
+
+{% endblock %}

@@ -9,6 +9,9 @@ from django.contrib.auth import authenticate
 def index(request):
     return render(request,'index.html')
 
+
+
+
 def register(request):
     print request
     if request.method == 'POST':
@@ -24,7 +27,7 @@ def register(request):
             user.save()
 
             user = authenticate(
-                username=request.POST['Name'], 
+                username=request.POST['Name'],
                 password=request.POST['Password'],
             )
 
@@ -34,7 +37,7 @@ def register(request):
         except:
             print('Got exception on main handler')
             raise Http404("Something goes wrong")
-            
+
     else:
         return render(request,'register.html')
 
@@ -59,3 +62,7 @@ def logoutView(request):
     logout(request)
     # Redirect to a success page.
     return render(request, 'students/Index.html')
+def member(request):
+    return render(request,'member.html')
+def manager(request):
+    return render(request,'manager.html')
