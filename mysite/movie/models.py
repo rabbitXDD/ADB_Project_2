@@ -70,6 +70,7 @@ class Showtimes(models.Model):
 
 class Seat(models.Model):
     showtimes = models.ForeignKey('Showtimes')
+    number = models.IntegerField(default=1)
 
     class Meta:
         db_table = 'seat'

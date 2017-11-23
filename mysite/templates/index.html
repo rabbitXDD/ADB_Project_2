@@ -12,14 +12,14 @@
 </div>
 
 <script>
-	function showtimes(url) {
-		$.get( url, { name: "John", time: "2pm" } )
+	function showtimes(url, id) {
+		$.get( url, { movie_id: id} )
 			.done(function( data ) {
 				$("#showtimes_selection").append(data);
 			});
 	};
-	function showSeats(url){
-		$.get( url, { name: "John", time: "2pm" } )
+	function showSeats(url, id){
+		$.get( url, { showtimes_id: id } )
 			.done(function( data ) {
 				$("#seats").append(data);
 			});
@@ -48,20 +48,12 @@ $(function() {
 			<h3>電影選擇</h3>
 			{% for movie in movies %}
 				<div class="col-md-4">
-					<a href="#select_showtimes" onclick="showtimes('showtimes');$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll"> 
+					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll"> 
 						<img src ="{{movie.image}}" style="width:15em;height:12em;">
 					</a>
 					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
 				</div>
 			{% endfor %}
-			<!-- <div class="col-md-4">
-				<img src ="https://cf-char.zi.org.tw/wp-content/uploads/2017/08/1502983638-ab238df9ff7f25eb8cc54b9316ee7fee.jpg" style="width:15em;height:12em;">
-				<br><input type="checkbox" value="1" name="Product_1" style="display:None">
-			</div>
-			<div class="col-md-4">
-				<img src ="https://cf-char.zi.org.tw/wp-content/uploads/2017/08/1502983638-ab238df9ff7f25eb8cc54b9316ee7fee.jpg" style="width:15em;height:12em;">
-				<br><input type="checkbox" value="1" name="Product_1" style="display:None">
-			</div> -->
 		</div>
 		 	
 		
@@ -73,12 +65,15 @@ $(function() {
 			
 		<div class="gallery-info" style="display:block;">
 			<h3 id="select_meals">飲食/套餐選擇</h3>
-			<div class="col-md-4">
-				<a href="#select_seats" onclick="$('#meal_1').prop('checked', true);" class="scroll"> 
-					<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL" style="width:15em;height:12em;">
-				</a>
-				<br><input type="checkbox" value="1" id="meal_1" name="meal">
-			</div>
+			{% for meal in meals %}
+				<div class="col-md-4">
+					<a href="#select_seats" onclick="$('#meal_{{ meal.id }}').prop('checked', true);" class="scroll"> 
+						<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL" style="width:15em;height:12em;">
+					</a>
+					{{ meal.name }}
+					<br><input type="checkbox" value="{{ meal.id }}" id="meal_{{ meal.id }}" name="meal">
+				</div>
+			{% endfor %}
 
 		</div>
 

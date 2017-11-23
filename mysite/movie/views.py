@@ -8,12 +8,16 @@ from django.contrib.auth import logout, login
 from django.contrib.auth import authenticate
 import MySQLdb
 
+from movie.models import Movie, Showtimes, Meal, Seat
+
 # Create your views here.
 def index(request):
-    from movie.models import Movie
     movies = Movie.objects.all()
+    meals = Meal.objects.all()
+
     context = {
         'movies': movies,
+        'meals': meals, 
     }
     return render(request, 'index.html', context)
 
@@ -73,48 +77,42 @@ def booking(request):
         return render(request, 'index.html')
 
 def getShowTimes(request):
-    s = """
-        <div class="col-md-1">
-            <a href="#select_meals" onclick="showSeats('showseats');$('#showtimes_1').prop('checked', true);" class="scroll btn btn-default"> 
-                13:00
-            </a>
-            <br><input type="checkbox" value="1" id="showtimes_1" name="showtimes">
-        </div>
-        <div class="col-md-1">
-            <a href="#select_meals" onclick="$('#showtimes_1').prop('checked', true);" class="scroll btn btn-default"> 
-                13:00
-            </a>
-            <br><input type="checkbox" value="1" id="showtimes_1" name="showtimes">
-        </div>
-    """
-    return HttpResponse(json.dumps(s.strip('\n')), content_type="application/json")
+    
+    movieId = request.GET['movie_id']
+    showtimes = Showtimes.objects.filter(movie_id=movieId)
+
+    div = ""
+    
+    for showtime in showtimes:
+        print showtime.showtime
+        s = """
+            <div class="col-md-2">
+                <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default"> 
+                    %s
+                </a>
+                <br><input type="checkbox" value="1" id="showtimes_%s" name="showtimes">
+            </div>
+        """ % (showtime.id, showtime.id, showtime.showtime.strftime("%Y-%m-%d %H:%M:%S"), showtime.id)
+        div += s
+
+    return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
 
 def getSeats(request):
-    s = """
-         <div class="col-md-1">
-            <a href="#blog" onclick="$('#seats_1').prop('checked', true);" class="scroll btn btn-default"> 
-                1
-            </a>
-            <br><input type="checkbox" value="1" id="seats_1" name="seats">
-         </div>
-        <div class="col-md-1">
-            <a href="#blog" onclick="$('#seats_2').prop('checked', true);" class="scroll btn btn-default"> 
-                2
-            </a>
-            <br><input type="checkbox" value="2" id="seats_2" name="seats">
-         </div>
-        <div class="col-md-1">
-            <a href="#blog" onclick="$('#seats_3').prop('checked', true);" class="scroll btn btn-default"> 
-                3
-            </a>
-            <br><input type="checkbox" value="3" id="seats_3" name="seats">
-         </div>
-        <div class="col-md-1">
-            <a href="#blog" onclick="$('#seats_4').prop('checked', true);" class="scroll btn btn-default"> 
-                4
-            </a>
-            <br><input type="checkbox" value="4" id="seats_4" name="seats">
-         </div>
-        """
-    return HttpResponse(json.dumps(s.strip('\n')), content_type="application/json")
+    showtimesId = request.GET['showtimes_id']
+    seats =  Seat.objects.filter(showtimes_id=showtimesId)
+    div = ""
+
+    for seat in seats:
+        s = """
+            <div class="col-md-1">
+                <a href="#blog" onclick="$('#seats_%s').prop('checked', true);" class="scroll btn btn-default"> 
+                    %s
+                </a>
+                <br><input type="checkbox" value="%s" id="seats_%s" name="seats">
+            </div>
+        """  % (seat.id, seat.number, seat.id, seat.id)
+
+        div += s
+
+    return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
 
