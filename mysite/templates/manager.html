@@ -11,19 +11,27 @@
       <div class="touch-top toCenter">
 
         <form action="/manager" method="post">
-
-          <p><input name="moive_name" onblur="if (this.value == '') {this.value = 'Account';}" onfocus="this.value = '';" type="text" value="Movie name"></p>
-          <p><input name="type" onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" type="text" value="Type"></p>
-          <p><input name="runtime" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="time" value="Runtime"></p>
-          <p><input name="director" onblur="if (this.value == '') {this.value = 'Birthday';}" onfocus="this.value = '';" type="text" value="Director"></p>
-          <p><input name="actor" onblur="if (this.value == '') {this.value = 'PhoneNumber';}" onfocus="this.value = '';" type="text" value="Actor"></p>
+          {% csrf_token %}
+          <p><input name="movie_name" onblur="if (this.value == '') {this.value = 'Movie Name';}" onfocus="this.value = '';" type="text" value="Movie name"></p>
+          <p><input name="movie_type" onblur="if (this.value == '') {this.value = 'Type';}" onfocus="this.value = '';" type="text" value="Type"></p>
+          <p><input name="movie_runtime" onblur="if (this.value == '') {this.value = 'Duration';}" onfocus="this.value = '';" type="text" value="Duration"></p>
+          <p><input name="movie_director" onblur="if (this.value == '') {this.value = 'Director';}" onfocus="this.value = '';" type="text" value="Director"></p>
+          <p><input name="movie_actor" onblur="if (this.value == '') {this.value = 'Actor';}" onfocus="this.value = '';" type="text" value="Actor"></p>
+          <p><input name="movie_imageUrl" onblur="if (this.value == '') {this.value = 'Image URL';}" onfocus="this.value = '';" type="text" value="image URL"></input></p>
           <p><input type="submit" value="Submit"></p>
 
         </form>
 
       </div>
     </div>
-
+    {% for movie in movies %}
+    <div class="col-md-4">
+      <p>{{ movie.name }}</p>
+      <a href="#"> 
+        <img src ="{{movie.image}}" style="width:15em;height:12em;">
+      </a>
+    </div>
+    {% endfor %}
   </div>
 </div>
 

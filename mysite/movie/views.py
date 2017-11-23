@@ -70,7 +70,32 @@ def logoutUser(request):
 def member(request):
     return render(request,'member.html')
 def manager(request):
-    return render(request,'manager.html')
+
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
+
+    if request.POST:
+        name = request.POST['movie_name']
+        type = request.POST['movie_type']
+        runtime = request.POST['movie_runtime']
+        director = request.POST['movie_director']
+        actor = request.POST['movie_actor']
+        url = request.POST['movie_imageUrl']
+
+        movie = Movie(
+            name=name,
+            type=type,
+            runtime=runtime,
+            director=director,
+            actor=actor,
+            image=url
+        )
+
+        movie.save()
+
+    return render(request,'manager.html', context)
 
 def booking(request):
     if request.POST:
@@ -84,7 +109,6 @@ def getShowTimes(request):
     div = ""
     
     for showtime in showtimes:
-        print showtime.showtime
         s = """
             <div class="col-md-2">
                 <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default"> 
