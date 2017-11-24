@@ -28,7 +28,7 @@ from movie.views import logoutUser, signin
 from movie.views import booking
 from movie.views import getShowTimes
 from movie.views import getSeats
-
+from movie.views import addShowTimes
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
@@ -49,5 +49,6 @@ urlpatterns += patterns('',
         url(r'^booking', booking, name="booking"),
         url(r'^showtimes', getShowTimes, name="getShowTimes"),
         url(r'^showseats', getSeats, name="getSeats"),
+        url(r'^addShowTime', addShowTimes, name = "addShowTimes"),
         url(r'', index),
 )

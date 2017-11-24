@@ -17,7 +17,7 @@ def index(request):
 
     context = {
         'movies': movies,
-        'meals': meals, 
+        'meals': meals,
     }
     return render(request, 'index.html', context)
 
@@ -70,24 +70,48 @@ def logoutUser(request):
 def member(request):
     return render(request,'member.html')
 def manager(request):
-    return render(request,'manager.html')
+
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
+
+    if request.POST:
+        name = request.POST['movie_name']
+        type = request.POST['movie_type']
+        runtime = request.POST['movie_runtime']
+        director = request.POST['movie_director']
+        actor = request.POST['movie_actor']
+        url = request.POST['movie_imageUrl']
+
+        movie = Movie(
+            name=name,
+            type=type,
+            runtime=runtime,
+            director=director,
+            actor=actor,
+            image=url
+        )
+
+        movie.save()
+
+    return render(request,'manager.html', context)
 
 def booking(request):
     if request.POST:
         return render(request, 'index.html')
 
 def getShowTimes(request):
-    
+
     movieId = request.GET['movie_id']
     showtimes = Showtimes.objects.filter(movie_id=movieId)
 
     div = ""
-    
+
     for showtime in showtimes:
-        print showtime.showtime
         s = """
             <div class="col-md-2">
-                <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default"> 
+                <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
                 <br><input type="checkbox" value="1" id="showtimes_%s" name="showtimes">
@@ -105,7 +129,7 @@ def getSeats(request):
     for seat in seats:
         s = """
             <div class="col-md-1">
-                <a href="#blog" onclick="$('#seats_%s').prop('checked', true);" class="scroll btn btn-default"> 
+                <a href="#blog" onclick="$('#seats_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
                 <br><input type="checkbox" value="%s" id="seats_%s" name="seats">
@@ -115,4 +139,19 @@ def getSeats(request):
         div += s
 
     return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
+def addShowTimes(request):
 
+    if request.POST:
+        cinema = request.POST['cinema']
+        showtime = request.POST['showtime']
+        price = request.POST['price']
+        movie_id = request.POST['movie_id']
+
+        showtimes = Showtimes(
+            cinema = cinema,
+            showtime = showtime,
+            price = price,
+            movie_id = movie_id
+        )
+        showtimes.save()
+    return render(request,'manager.html')
