@@ -5,7 +5,7 @@
 
 <div class="contact" id="contact">
   <div class="container">
-    <div class="col-md-8 touch-left">
+    <div class="col-md-4 touch-left">
       <p> </p>
       <h3>新增電影</h3>
       <div class="touch-top toCenter">
@@ -28,8 +28,9 @@
     {% for movie in movies %}
     <div class="col-md-4">
       <p>{{ movie.name }}</p>
-      <a href="#">
+      <a href="{% url 'movieDetail' movie_id=movie.id %}">
         <img src ="{{movie.image}}" style="width:15em;height:12em;">
+      </a>
         <form action="/addShowTime" method="post">
           {% csrf_token %}
           <p><input name="cinema" onblur="if (this.value == '') {this.value = 'Cinema';}" onfocus="this.value = '';" type="varchar" value="Cinema"></p>
@@ -39,9 +40,19 @@
           <p><input type="submit" value="Submit"></p>
 
         </form>
-      </a>
+
     </div>
     {% endfor %}
+    <h3>新增飲食</h3>
+      <div class="col-md-12">
+        <form action="/addMeal" method="post">
+          {% csrf_token %}
+          <input name="name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="varchar" value="Name">
+          <input name="kind" onblur="if (this.value == '') {this.value = 'Kind';}" onfocus="this.value = '';" type="varchar" value="kind">
+          <input name="flavor" onblur="if (this.value == '') {this.value = 'Flavor';}" onfocus="this.value = '';" type="varchar" value="Flavor">
+          <input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="varchar" value="Price">
+          <p><input type="submit" value="Submit"></p>
+      </div>
   </div>
 </div>
 

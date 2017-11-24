@@ -10,6 +10,9 @@ import MySQLdb
 
 from movie.models import Movie, Showtimes, Meal, Seat
 
+db = MySQLdb.connect(host="140.119.19.73",    user="admin", passwd="12345678", db="orm_booking_movie")
+cursor = db.cursor()
+
 # Create your views here.
 def index(request):
     movies = Movie.objects.all()
@@ -67,8 +70,20 @@ def logoutUser(request):
     logout(request)
     # Redirect to a success page.
     return render(request, 'index.html')
+
+def movieDetail(request,movie_id):
+    movie = Movie.objects.get(id=movie_id)
+    cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
+    rc = cursor.rowcount
+    row=[]
+    for i in range(0,rc):
+        rows = cursor.fetchone()
+        row.append(rows)
+    return render(request,'moviedetail.html' , {'movie': movie,'showtime':row})
+
 def member(request):
     return render(request,'member.html')
+
 def manager(request):
 
     movies = Movie.objects.all()
@@ -139,6 +154,7 @@ def getSeats(request):
         div += s
 
     return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
+
 def addShowTimes(request):
     movies = Movie.objects.all()
     context = {
@@ -157,4 +173,24 @@ def addShowTimes(request):
             movie_id = movie_id
         )
         showtimes.save()
-    return render(request,'manager.html',context)
+        return render(request,'manager.html',context)
+
+def addMeal(request):
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
+    if request.POST:
+        name = request.POST['name']
+        kind = request.POST['kind']
+        flavor = request.POST['flavor']
+        price = request.POST['price']
+
+        meal = Meal(
+            name = name,
+            kind = kind,
+            flavor = flavor,
+            price = price
+        )
+        meal.save()
+        return render(request,'manager.html',context)

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block empty %}
+
+
+</script>
+<div>
+  <button><a href="/manager">上一頁</a></button>
+</div>
+<div class="container">
+  <div class="col-md-4 touch-left">
+      <img src ="{{movie.image}}" style="width:15em;height:12em;">
+      <p><h3>{{movie.name}}</h3></p>
+      <p><h3>{{movie.type}}</h3></p>
+      <p><h3>{{movie.runtime}}</h3></p>
+      <p><h3>{{movie.director}}</h3></p>
+      <p><h3>{{movie.actor}}</h3></p>
+  </div>
+  <div class="col-md-8 touch-right">
+    <h2>cinema:{{showtime.1}}</h2>
+    <h2>showtime:{{showtime}}</h2>
+    <h2>price:{{price}}</h2>
+  </div>
+
+</div>
+{% endblock %}
