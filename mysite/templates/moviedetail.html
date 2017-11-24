@@ -2,8 +2,6 @@
 
 {% block empty %}
 
-
-</script>
 <div>
   <button><a href="/manager">上一頁</a></button>
 </div>
@@ -17,9 +15,11 @@
       <p><h3>{{movie.actor}}</h3></p>
   </div>
   <div class="col-md-8 touch-right">
-    <h2>cinema:{{showtime.1}}</h2>
-    <h2>showtime:{{showtime}}</h2>
-    <h2>price:{{price}}</h2>
+    <h3>現有場次</h3>
+    {% for showtime in showtime %}
+      <br>{{showtime}}</br>
+      <button>刪除</button>
+    {% endfor %}
   </div>
 
 </div>

@@ -76,9 +76,11 @@ def movieDetail(request,movie_id):
     cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
     rc = cursor.rowcount
     row=[]
+
     for i in range(0,rc):
         rows = cursor.fetchone()
-        row.append(rows)
+        info = "Cinema:" + rows[1] +"\nShowtime:"+str(rows[2])+"\nPrice:"+str(rows[3])
+        row.append(info)
     return render(request,'moviedetail.html' , {'movie': movie,'showtime':row})
 
 def member(request):
@@ -173,7 +175,7 @@ def addShowTimes(request):
             movie_id = movie_id
         )
         showtimes.save()
-        return render(request,'manager.html',context)
+    return render(request,'manager.html',context)
 
 def addMeal(request):
     movies = Movie.objects.all()
@@ -193,4 +195,4 @@ def addMeal(request):
             price = price
         )
         meal.save()
-        return render(request,'manager.html',context)
+    return render(request,'manager.html',context)
