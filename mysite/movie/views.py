@@ -140,7 +140,10 @@ def getSeats(request):
 
     return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
 def addShowTimes(request):
-
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
     if request.POST:
         cinema = request.POST['cinema']
         showtime = request.POST['showtime']
@@ -154,4 +157,4 @@ def addShowTimes(request):
             movie_id = movie_id
         )
         showtimes.save()
-    return render(request,'manager.html')
+    return render(request,'manager.html',context)
