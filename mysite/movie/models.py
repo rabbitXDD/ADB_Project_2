@@ -62,7 +62,7 @@ class Movie(models.Model):
 
 class Showtimes(models.Model):
     cinema = models.CharField(max_length=10)
-    showtime = models.TimeField()
+    showtime = models.DateTimeField()
     price = models.IntegerField(default=200)
     movie = models.ForeignKey('Movie')
     class Meta:

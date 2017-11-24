@@ -33,7 +33,7 @@
         <form action="/addShowTime" method="post">
           {% csrf_token %}
           <p><input name="cinema" onblur="if (this.value == '') {this.value = 'Cinema';}" onfocus="this.value = '';" type="varchar" value="Cinema"></p>
-          <p><input name="showtime" onblur="if (this.value == '') {this.value = 'Showtime';}" onfocus="this.value = '';" type="datetime" value="Showtime"></p>
+          <p><input name="showtime" onblur="if (this.value == '') {this.value = 'Showtime';}" onfocus="this.value = '';" type="datetime-local" value="Showtime"></p>
           <p><input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="int" value="Price"></p>
           <p><input name="movie_id" onblur="if (this.value == '') {this.value = 'Movie_id';}" onfocus="this.value = '{{movie.id}}';" type="int" value="Moive_id"></p>
           <p><input type="submit" value="Submit"></p>
