@@ -98,19 +98,21 @@ class Order(models.Model):
         (CANCELED, 'Canceled'),
     )
 
-    seat = models.ForeignKey('Seat')
     showtimes = models.ForeignKey('Showtimes')
     user = models.ForeignKey('User')
     status = models.IntegerField(
         choices=ORDER_STATUS_CHOICES,
         default=UNCOMFIRMED,
     )
-
-class ComboOrder(Order):
-    comboOrder = models.ForeignKey('Combo')
-
-class NormalOrder(Order):
+    combo = models.ForeignKey('Combo', null=True, blank=True)
+    
+class OrderMeal(models.Model):
     meal = models.ForeignKey('Meal')
+    order = models.ForeignKey('Order')
+
+class SeatsOrder(models.Model):
+    seat = models.ForeignKey('Seat')
+    order = models.ForeignKey('Order')
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)

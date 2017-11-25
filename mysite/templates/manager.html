@@ -3,6 +3,43 @@
 {% extends "base.html" %}
 {% block empty %}
 
+<style>
+  .input{
+    width: 80%;
+    margin: 7px auto;
+    color: #999;
+    background: none;
+    padding: 10px 10px;
+    outline: none;
+    border: 1px solid #999;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+  }
+  .submit{
+    color: #ffffff;
+    padding: 9px 30px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 27px 0 0 0px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border: 2px solid #3598db;
+    background: #3598db;
+    transition:0.5s all;
+    -webkit-transition:0.5s all;
+    -moz-transition:0.5s all;
+    -o-transition:0.5s all;
+    -ms-transition:0.5s all;
+  }
+</style>
+
 <div class="contact" id="contact">
   <div class="container">
     <div class="col-md-4 touch-left">
@@ -33,11 +70,11 @@
       </a>
         <form action="/addShowTime" method="post">
           {% csrf_token %}
-          <p><input name="cinema" onblur="if (this.value == '') {this.value = 'Cinema';}" onfocus="this.value = '';" type="varchar" value="Cinema"></p>
-          <p><input name="showtime" onblur="if (this.value == '') {this.value = 'Showtime';}" onfocus="this.value = '';" type="datetime-local" value="Showtime"></p>
-          <p><input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="int" value="Price"></p>
-          <p><input name="movie_id" onblur="if (this.value == '') {this.value = 'Movie_id';}" onfocus="this.value = '{{movie.id}}';" type="int" value="Moive_id"></p>
-          <p><input type="submit" value="Submit"></p>
+          <p><input name="cinema" onblur="if (this.value == '') {this.value = 'Cinema';}" onfocus="this.value = '';" type="varchar" value="Cinema" class="input"></p>
+          <p><input name="showtime" onblur="if (this.value == '') {this.value = 'Showtime';}" onfocus="this.value = '';" type="datetime-local" value="Showtime" class="input"></p>
+          <p><input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="int" value="Price" class="input"></p>
+          <p><input name="movie_id" onblur="if (this.value == '') {this.value = 'Movie_id';}" onfocus="this.value = '{{movie.id}}';" type="int" value="Moive_id" class="input"></p>
+          <p><input type="submit" value="Submit" class="submit"></p>
 
         </form>
 
@@ -47,11 +84,11 @@
       <div class="col-md-12">
         <form action="/addMeal" method="post">
           {% csrf_token %}
-          <input name="name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="varchar" value="Name">
-          <input name="kind" onblur="if (this.value == '') {this.value = 'Kind';}" onfocus="this.value = '';" type="varchar" value="kind">
-          <input name="flavor" onblur="if (this.value == '') {this.value = 'Flavor';}" onfocus="this.value = '';" type="varchar" value="Flavor">
-          <input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="varchar" value="Price">
-          <p><input type="submit" value="Submit"></p>
+          <input name="name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="this.value = '';" type="varchar" value="Name" class="input">
+          <input name="kind" onblur="if (this.value == '') {this.value = 'Kind';}" onfocus="this.value = '';" type="varchar" value="kind" class="input">
+          <input name="flavor" onblur="if (this.value == '') {this.value = 'Flavor';}" onfocus="this.value = '';" type="varchar" value="Flavor" class="input">
+          <input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="varchar" value="Price" class="input">
+          <p><input type="submit" value="Submit" class="submit"></p>
       </div>
   </div>
 </div>
