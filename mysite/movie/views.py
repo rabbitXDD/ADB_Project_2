@@ -71,8 +71,9 @@ def signin(request):
 
 def logoutUser(request):
     logout(request)
+    movies = Movie.objects.all()
     # Redirect to a success page.
-    return render(request, 'index.html')
+    return render(request, 'index.html',{'movies':movies})
 
 def movieDetail(request,movie_id):
     movie = Movie.objects.get(id=movie_id)
