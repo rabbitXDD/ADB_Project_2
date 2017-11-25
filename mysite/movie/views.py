@@ -181,8 +181,14 @@ def booking(request):
                 order=order
             )
             meal_order.save()
+        movies = Movie.objects.all()
+        meals = Meal.objects.all()
 
-        return render(request, 'index.html')
+        context = {
+            'movies': movies,
+            'meals': meals,
+        }
+        return render(request, 'index.html',context)
 
 def getShowTimes(request):
 
