@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
 {% block empty %}
-
+{% if user.is_staff %}
 <div>
   <button><a href="/manager">上一頁</a></button>
 </div>
+{% else %}
+<div>
+  <button><a href="/index">回首頁</a></button>
+</div>
+{% endif %}
 <div class="container">
   <div class="col-md-4 touch-left">
       <img src ="{{movie.image}}" style="width:15em;height:12em;">
@@ -13,12 +18,16 @@
       <p><h3>{{movie.runtime}}</h3></p>
       <p><h3>{{movie.director}}</h3></p>
       <p><h3>{{movie.actor}}</h3></p>
+{% if user.is_staff %}
+
       <form action="/deleteMovie" method="post">
         {% csrf_token %}
         <p><input name="movie_id"  type="hidden" value="{{movie.id}}"></p>
         <p><input type="submit" value="Delete"></p>
       </form>
+{% endif %}
   </div>
+{% if user.is_staff %}
   <div class="col-md-8 touch-right">
     <h3>現有場次</h3>
     {% for showtime in showtime %}
@@ -31,6 +40,6 @@
         </form>
     {% endfor %}
   </div>
-
+{% endif %}
 </div>
 {% endblock %}

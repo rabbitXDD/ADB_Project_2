@@ -36,7 +36,18 @@ $(function() {
 });
 </script>
 <!--gallery js-->
-
+<div id="preview" class="gallery">
+	 <div class="container">
+			<h3>上映電影</h3>
+			{% for movie in movies %}
+				<div class="col-md-4">
+						<img src ="{{movie.image}}" style="width:15em;height:12em;">
+						<div>{{movie.name}}</div>
+					<a href="{% url 'movieDetail' movie_id=movie.id %}"><button>詳細介紹</button></a>
+				</div>
+			{% endfor %}
+	</div>
+</div>
 {% if request.user.is_authenticated %}
 
 <form action="/booking" method="post">
@@ -51,6 +62,7 @@ $(function() {
 					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll">
 						<img src ="{{movie.image}}" style="width:15em;height:12em;">
 					</a>
+					<div>{{movie.name}}</div>
 					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
 				</div>
 			{% endfor %}
