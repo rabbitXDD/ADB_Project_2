@@ -79,17 +79,17 @@ def movieDetail(request,movie_id):
     # cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
     # rc = cursor.rowcount
     # row=[]
-
+    #
     # for i in range(0,rc):
     #     rows = cursor.fetchone()
     #     info = "Cinema:" + rows[1] +"  Showtime:"+str(rows[2])+"  Price:"+str(rows[3])
     #     row.append([rows[0],info])
-
+    #
     # print(row)
     row=[]
-    showtimes = Showtimes.objects.filter(movie=movie)[0]
+    showtimes = Showtimes.objects.filter(movie=movie)
     for showtime in showtimes:
-        info = "Cinema:" + showtimes.cinema +"  Showtime:"+str(showtimes.showtime)+"  Price:"+str(showtimes.price)
+        info = "Cinema:" + showtime.cinema +"  Showtime:"+str(showtime.showtime)+"  Price:"+str(showtime.price)
         row.append([showtime.id, info])
 
     print(row)
