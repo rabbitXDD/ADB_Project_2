@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 import json
+import datetime
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -8,7 +11,7 @@ from django.contrib.auth import logout, login
 from django.contrib.auth import authenticate
 import MySQLdb
 
-from movie.models import Movie, Showtimes, Meal, Seat
+from movie.models import Movie, Showtimes, Meal, Seat, Order, Combo, OrderMeal, SeatsOrder
 
 db = MySQLdb.connect(host="140.119.19.73",    user="admin", passwd="12345678", db="orm_booking_movie")
 cursor = db.cursor()
@@ -84,7 +87,22 @@ def movieDetail(request,movie_id):
     return render(request,'moviedetail.html' , {'movie': movie,'showtime':row})
 
 def member(request):
-    return render(request,'member.html')
+    orders = Order.objects.filter(user=request.user)
+    ordersList = []
+    for order in orders:
+        orderTmp = {
+            'movie_name': order.showtimes.movie.name,
+            'showtime': datetime.datetime.strftime(order.showtimes.showtime, '%Y-%m-%dT%H:%M:%S'),
+            'seat': [seatOrder.seat.number for seatOrder in SeatsOrder.objects.filter(order=order)], 
+            'addition': [orderMeal.meal.name for orderMeal in OrderMeal.objects.filter(order=order)],
+            'status': 'Not confirmed',
+        }
+        ordersList.append(orderTmp)
+
+    context = {
+        'orders': ordersList,
+    }
+    return render(request,'member.html', context)
 
 def manager(request):
 
@@ -116,6 +134,43 @@ def manager(request):
 
 def booking(request):
     if request.POST:
+        showtimes_id = request.POST['showtimes']
+        combo_id = request.POST.get('combo', None)
+
+        seats = request.POST.getlist('seats')
+        meals = request.POST.getlist('meal')
+        
+        showtime = Showtimes.objects.filter(id=showtimes_id)[0]
+
+        if combo_id:
+            combo = Combo.objects.filter(id=combo_id)[0]
+        else:
+            combo = None
+
+        order = Order(
+            combo=combo,
+            showtimes=showtime,
+            user=request.user,
+            status=1
+        )
+        order.save()
+
+        for seat_id in seats:
+            seat = Seat.objects.filter(id=seat_id)[0]
+            seats_order = SeatsOrder(
+                seat=seat,
+                order=order
+            )
+            seats_order.save()
+
+        for meal_id in meals:
+            meal = Meal.objects.filter(id=meal_id)[0]
+            meal_order = OrderMeal(
+                meal=meal,
+                order=order
+            )
+            meal_order.save()
+
         return render(request, 'index.html')
 
 def getShowTimes(request):
