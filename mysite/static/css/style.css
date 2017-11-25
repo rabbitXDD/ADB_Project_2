@@ -21,11 +21,11 @@ p{
 }
 ul{
 	padding:0 0;
-	margin:0 0;	
+	margin:0 0;
 }
 body{
 	padding:0 0;
-	margin:0 0; 
+	margin:0 0;
 	font-family:'Open Sans', sans-serif;
 }
 @font-face {
@@ -99,7 +99,7 @@ span.menu {
 .banner-info{
 	float:right;
 	width:46%;
-	  margin: 13em 0 0 0em; 
+	  margin: 13em 0 0 0em;
 }
 .banner-info h2{
 	color:#fff;
@@ -151,7 +151,7 @@ label{
    -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
-  -o-border-radius: 50%;  
+  -o-border-radius: 50%;
   margin-bottom: 1.5em;
   padding: 32px 0px;
   background:#fff;
@@ -232,6 +232,8 @@ label{
 .gallery-info{
 	margin-top:2.5em;
 }
+
+.
 /*----- Strip -----*/
 .b-link-stripe{
 	position:relative;
@@ -276,7 +278,7 @@ img.img-responsive.glry-img {
 	-ms-transition: all 0.5s;
 	-o-transition: all 0.5s;
 	-webkit-transition: all 0.5s;
-	visibility: hidden;	
+	visibility: hidden;
 }
 .b-animate img{
 	display: -webkit-inline-box;
@@ -663,10 +665,10 @@ padding:2em 0 0.5em 0;
   padding: 0.7em 3em;
   font-size: 1em;
   margin-top: 1.5em;
-} 
+}
 .top-menu ul li a {
   padding: 0 1em;
-} 
+}
 .icon-pic {
   width: 25%;
 }
@@ -814,7 +816,7 @@ padding:2em 0 0.5em 0;
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	left: 0%;	
+	left: 0%;
 	background:#fff;
 }
 .top-menu ul li a {
@@ -872,7 +874,7 @@ padding:2em 0 0.5em 0;
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	left: 0%;	
+	left: 0%;
 	background:#fff;
 }
 .top-menu ul li a {

@@ -41,10 +41,12 @@ $(function() {
 			<h3>上映電影</h3>
 			{% for movie in movies %}
 				<div class="col-md-4">
-						<img src ="{{movie.image}}" style="width:15em;height:12em;">
-						<div>{{movie.name}}</div>
+					<div class="margin-top:0.7em;display:inline-block">
+						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
+						<div style="color:#3598db;font-size:1.3em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
 					<a href="{% url 'movieDetail' movie_id=movie.id %}"><button>詳細介紹</button></a>
 				</div>
+			</div>
 			{% endfor %}
 	</div>
 </div>
@@ -60,7 +62,7 @@ $(function() {
 			{% for movie in movies %}
 				<div class="col-md-4">
 					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll">
-						<img src ="{{movie.image}}" style="width:15em;height:12em;">
+						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
 					</a>
 					<div>{{movie.name}}</div>
 					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
