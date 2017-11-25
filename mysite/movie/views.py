@@ -76,16 +76,24 @@ def logoutUser(request):
 
 def movieDetail(request,movie_id):
     movie = Movie.objects.get(id=movie_id)
-    cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
-    rc = cursor.rowcount
-    row=[]
+    # cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
+    # rc = cursor.rowcount
+    # row=[]
 
-    for i in range(0,rc):
-        rows = cursor.fetchone()
-        info = "Cinema:" + rows[1] +"  Showtime:"+str(rows[2])+"  Price:"+str(rows[3])
-        row.append([rows[0],info])
+    # for i in range(0,rc):
+    #     rows = cursor.fetchone()
+    #     info = "Cinema:" + rows[1] +"  Showtime:"+str(rows[2])+"  Price:"+str(rows[3])
+    #     row.append([rows[0],info])
+
+    # print(row)
+    row=[]
+    showtimes = Showtimes.objects.filter(movie=movie)[0]
+    for showtime in showtimes:
+        info = "Cinema:" + showtimes.cinema +"  Showtime:"+str(showtimes.showtime)+"  Price:"+str(showtimes.price)
+        row.append([showtime.id, info])
 
     print(row)
+
     return render(request,'moviedetail.html' , {'movie': movie,'showtime':row} )
 
 def member(request):
