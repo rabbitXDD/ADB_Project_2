@@ -79,9 +79,11 @@ def movieDetail(request,movie_id):
 
     for i in range(0,rc):
         rows = cursor.fetchone()
-        info = "Cinema:" + rows[1] +"\nShowtime:"+str(rows[2])+"\nPrice:"+str(rows[3])
-        row.append(info)
-    return render(request,'moviedetail.html' , {'movie': movie,'showtime':row})
+        info = "Cinema:" + rows[1] +"  Showtime:"+str(rows[2])+"  Price:"+str(rows[3])
+        row.append([rows[0],info])
+
+    print(row)
+    return render(request,'moviedetail.html' , {'movie': movie,'showtime':row} )
 
 def member(request):
     return render(request,'member.html')
@@ -116,6 +118,7 @@ def manager(request):
 
 def booking(request):
     if request.POST:
+
         return render(request, 'index.html')
 
 def getShowTimes(request):
@@ -196,3 +199,35 @@ def addMeal(request):
         )
         meal.save()
     return render(request,'manager.html',context)
+
+
+def deleteMovie(request):
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
+    if request.POST:
+        id = request.POST['movie_id']
+        cursor.execute("DELETE FROM movie WHERE id = %s" %(id))
+        db.commit()
+
+    return render(request,'manager.html',context)
+
+def deleteShowtime(request):
+
+    if request.POST:
+        sid = request.POST['showtime_id']
+        cursor.execute("DELETE FROM showtimes WHERE id = %s" % (sid))
+        db.commit()
+
+    movie_id = request.POST['movie_id']
+    movie = Movie.objects.get(id=movie_id)
+    cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
+    rc = cursor.rowcount
+    row=[]
+    for i in range(0,rc):
+        rows = cursor.fetchone()
+        info = "Cinema:" + rows[1] +"  Showtime:"+str(rows[2])+"  Price:"+str(rows[3])
+        row.append([rows[0],info])
+
+    return render(request,'moviedetail.html',{'movie':movie,'showtime':row})

@@ -31,6 +31,8 @@ from movie.views import getSeats
 from movie.views import addShowTimes
 from movie.views import addMeal
 from movie.views import movieDetail
+from movie.views import deleteMovie
+from movie.views import deleteShowtime
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
@@ -54,5 +56,7 @@ urlpatterns += patterns('',
         url(r'^addShowTime', addShowTimes, name = "addShowTimes"),
         url(r'^addMeal', addMeal, name = "addMeal"),
         url(r'^movieDetail/(?P<movie_id>\d+)/$', movieDetail, name = "movieDetail"),
+        url(r'^deleteMovie',deleteMovie,name="deleteMovie"),
+        url(r'^deleteShowtime',deleteShowtime,name="deleteShowtime"),
         url(r'', index),
 )

@@ -13,12 +13,22 @@
       <p><h3>{{movie.runtime}}</h3></p>
       <p><h3>{{movie.director}}</h3></p>
       <p><h3>{{movie.actor}}</h3></p>
+      <form action="/deleteMovie" method="post">
+        {% csrf_token %}
+        <p><input name="movie_id"  type="hidden" value="{{movie.id}}"></p>
+        <p><input type="submit" value="Delete"></p>
+      </form>
   </div>
   <div class="col-md-8 touch-right">
     <h3>現有場次</h3>
     {% for showtime in showtime %}
       <br>{{showtime}}</br>
-      <button>刪除</button>
+        <form action="/deleteShowtime" method="post">
+          {% csrf_token %}
+          <p><input name="showtime_id"  type="hidden" value="{{showtime.0}}"></p>
+          <p><input name="movie_id" type="hidden" value="{{movie.id}}"></p>
+          <p><input type="submit" value="Delete"></p>
+        </form>
     {% endfor %}
   </div>
 
