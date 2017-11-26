@@ -92,7 +92,7 @@ span.menu {
   margin-right: 13em;
 }
 .header{
-	background: url(../images/banner.jpg) no-repeat 0px -127px;
+	background: url(http://www.movier.tw/img_upload/a1852s1262001489850378.jpg) no-repeat 0px -127px;
   background-size: cover;
   min-height: 600px;
 }
@@ -135,7 +135,7 @@ span.menu {
 label{
 	 font-weight:normal;
 }
-/*--service--*/
+/*--service // SHOW TIMES SELECT--*/
 .service{
 	padding:5em 0;
 }
@@ -161,23 +161,46 @@ label{
   color:#9F9F9F;
   font-size: 35px;
 }
-.icon-info {
+.time-info {
   float: left;
   width: 74%;
   margin-left: 3%;
 }
-.icon-info h4 a {
-  color: #3E3E3E;
+.time-info h4 a {
+  color: #3598db;
   font-size: 1.3em;
   text-decoration: none;
   display: inline-block;
   font-family: 'Dosis-Medium';
+  margin-top:2.5em;
 }
-.icon-info p {
-  font-size: 1em;
+.time-info p {
+  font-size: 1.5em;
   line-height: 1.8em;
-  color: #999;
+  color: #373842;
   margin-top:0.7em;
+}
+
+.time-info a{
+  color:#373842;
+  padding:0.3em 0.3em;
+  font-size:1.1em;
+  display:inline-block;
+  margin-top:2.5em;
+  border:2px solid #dbdee0;
+  border-radius:3px;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  -ms-border-radius:3px;
+  -o-border-radius:3px;
+  background: #dbdee0;
+  }
+
+.time-ifo a:hover{
+  text-decoration: none;
+  color:#fff;
+  background: :#c44a4a;
+  border:2px solid #fff;
 }
 .service-grids{
 	margin-top:3.5em;
@@ -232,8 +255,11 @@ label{
 .gallery-info{
 	margin-top:2.5em;
 }
-
-.
+.select_meals h3{
+   color:#3598db;
+   font-size:2.5em;
+   text-align:center;
+}
 /*----- Strip -----*/
 .b-link-stripe{
 	position:relative;

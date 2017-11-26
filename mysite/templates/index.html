@@ -4,8 +4,8 @@
 <div class="header">
 		<div class="container">
 			 <div class="banner-info">
-				 <h2>歡迎蒞臨</h2>
-				 <p>讀paper、做報告、寫作業累了嗎？何不與親密的戰友們一同悠閒的看個電影，吃點東西，發點牢騷？心動不如馬上行動，快快訂票加入我們吧！</p>
+				 <h2 style="font-size=2em">歡迎蒞臨</h2>
+				 <p style="font-size=1.7em">讀paper、做報告、寫作業累了嗎？何不與親密的戰友們一同悠閒的看個電影，吃點東西，發點牢騷？心動不如馬上行動，快快訂票加入我們吧！</p>
 			 </div>
 			 <div class="clearfix"></div>
 		</div>
@@ -35,7 +35,7 @@ $(function() {
 	$('.moments-bottom a').Chocolat();
 });
 </script>
-<!--gallery js-->
+<!--gallery js//Movie-->
 <div id="preview" class="gallery">
 	 <div class="container">
 			<h3>上映電影</h3>
@@ -43,7 +43,7 @@ $(function() {
 				<div class="col-md-4">
 					<div class="margin-top:0.7em;display:inline-block">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
-						<div style="color:#3598db;font-size:1.3em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
+						<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
 					<a href="{% url 'movieDetail' movie_id=movie.id %}"><button>詳細介紹</button></a>
 				</div>
 			</div>
@@ -64,40 +64,45 @@ $(function() {
 					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
 					</a>
-					<div>{{movie.name}}</div>
+					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
 					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
 				</div>
 			{% endfor %}
 		</div>
+	</div>
+</div>
 
 
 
-		<div class="gallery-info" id="showtimes_selection" style="display:block;">
-			<h3 id="select_showtimes">場次選擇</h3>
+<div class="gallery-info" id="showtimes_selection" style="display:block;">
+	<div class"container">
+			<h3 id="select_showtimes" style="color:#3598db;font-size:2.5em; text-align:center">場次選擇</h3>
+			<div calss="clearfix"></div>
 		</div>
+</div>
 
 
 		<div class="gallery-info" style="display:block;">
-			<h3 id="select_meals">飲食/套餐選擇</h3>
+			<div class"container">
+				<h3 id="select_meals" style="color:#3598db;font-size:2.5em; text-align:center">飲食/套餐選擇</h3>
 			{% for meal in meals %}
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<a href="#select_seats" onclick="$('#meal_{{ meal.id }}').prop('checked', true);" class="scroll">
 						<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL" style="width:15em;height:12em;">
 					</a>
-					{{ meal.name }}
+					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{ meal.name }}</div>
 					<br><input type="checkbox" value="{{ meal.id }}" id="meal_{{ meal.id }}" name="meal">
+					<div calss="clearfix"></div>
 				</div>
+			</div>
+		</div>
+
 			{% endfor %}
 
-		</div>
-
 		<div class="gallery-info" style="display:block;" id="seats" style="display:block;">
-			<h3 id="select_seats">座位選擇</h3>
+			<h3 id="select_seats" style="color:#3598db;font-size:2.5em; text-align:center">座位選擇</h3>
+			<div class="clearfix"> </div>
 		</div>
-
-		<div class="clearfix"> </div>
-		</div>
-</div>
 
 <!---->
 <div id="blog" class="blog">
@@ -111,10 +116,6 @@ $(function() {
 </form>
 
 
-<div class="map">
-	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script><div id='gmap_canvas' style='height:600px;width:2200px;'></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style><script type='text/javascript'>function init_map(){var myOptions = {zoom:17,center:new google.maps.LatLng(24.9873313,121.5761281),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(24.9873313,121.5761281)});infowindow = new google.maps.InfoWindow({content:'<strong>政治大學商學院五樓</strong><br>116台灣台北市文山區指南路二段64號<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
-	 <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6632.248000703498!2d151.265683!3d-33.7832959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12abc7edcbeb07%3A0x5017d681632bfc0!2sManly+Vale+NSW+2093%2C+Australia!5e0!3m2!1sen!2sin!4v1433329298259" style="border:0"></iframe> -->
-</div>
 
 
 
