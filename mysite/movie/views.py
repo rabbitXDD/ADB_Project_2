@@ -203,12 +203,14 @@ def getShowTimes(request):
     for showtime in showtimes:
         s = """
             <div class="col-md-12">
-                <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
+                <a href="#select_meals" onclick="$('.showtimesGroup input:checkbox').prop('checked',false);showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
-                <br><input type="checkbox" value="1" id="showtimes_%s" name="showtimes">
+                <div class="showtimesGroup" style="">
+					<input type="checkbox" value="%s" id="showtimes_%s" name="showtimes">
+				</div>
             </div>
-        """ % (showtime.id, showtime.id, showtime.showtime.strftime("%Y-%m-%d %H:%M:%S"), showtime.id)
+        """ % (showtime.id, showtime.id, showtime.showtime.strftime("%Y-%m-%d %H:%M:%S"), showtime.id, showtime.id)
         div += s
 
     return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")

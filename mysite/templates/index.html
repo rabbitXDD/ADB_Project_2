@@ -70,15 +70,10 @@ $(function() {
 					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('.movieGroup input:checkbox').prop('checked',false);$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
 					</a>
-<!-- <<<<<<< HEAD
-					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
-					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
-======= -->
 					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
 				</div>
 				<div class="movieGroup" style="display:none">
 					<input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
->>>>>>> f361e1e8bb2c771c21cdf4a69f82c8ff5172c993
 				</div>
 			{% endfor %}
 		</div>
@@ -87,11 +82,13 @@ $(function() {
 
 
 
-<div class="gallery-info" id="showtimes_selection" style="display:block;">
+<div class="gallery-info" style="display:block;">
 	<div class"container">
-			<h3 id="select_showtimes" style="color:#3598db;font-size:2.5em; text-align:center">場次選擇</h3>
-			<div calss="clearfix"></div>
+		<h3 id="select_showtimes" style="color:#3598db;font-size:2.5em; text-align:center">場次選擇</h3>
+		<div calss="clearfix"></div>
+		<div id="showtimes_selection">
 		</div>
+	</div>
 </div>
 
 
