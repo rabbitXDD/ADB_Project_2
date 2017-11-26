@@ -199,7 +199,7 @@ def getShowTimes(request):
 
     for showtime in showtimes:
         s = """
-            <div class="col-md-12" style="margin:0">
+            <div class="col-md-12">
                 <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
