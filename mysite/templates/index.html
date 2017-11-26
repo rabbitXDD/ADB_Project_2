@@ -46,7 +46,11 @@ $(function() {
 					<div class="margin-top:0.7em;display:inline-block">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
 						<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
-					<a href="{% url 'movieDetail' movie_id=movie.id %}"><button>詳細介紹</button></a>
+					<form   action="/movieDetail" method="post">
+		        {% csrf_token %}
+		        <input name="movie_id"  type="hidden" value='{{movie.id}}' class="input">
+		        <input type="submit" value="詳細介紹" class="submit">
+		      </form>
 				</div>
 			</div>
 			{% endfor %}
@@ -66,10 +70,15 @@ $(function() {
 					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('.movieGroup input:checkbox').prop('checked',false);$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
 					</a>
+<!-- <<<<<<< HEAD
+					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
+					<br><input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
+======= -->
 					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
 				</div>
 				<div class="movieGroup" style="display:none">
 					<input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
+>>>>>>> f361e1e8bb2c771c21cdf4a69f82c8ff5172c993
 				</div>
 			{% endfor %}
 		</div>

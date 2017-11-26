@@ -75,7 +75,10 @@ def logoutUser(request):
     # Redirect to a success page.
     return render(request, 'index.html',{'movies':movies})
 
-def movieDetail(request,movie_id):
+def movieDetail(request):
+    if request.POST:
+        movie_id = request.POST['movie_id']
+    
     movie = Movie.objects.get(id=movie_id)
     # cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
     # rc = cursor.rowcount

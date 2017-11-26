@@ -2,7 +2,6 @@
 
 {% extends "base.html" %}
 {% block empty %}
-
 <style>
   .input{
     width: 80%;
@@ -65,9 +64,13 @@
     {% for movie in movies %}
     <div class="col-md-4">
       <p>{{ movie.name }}</p>
-      <a href="{% url 'movieDetail' movie_id=movie.id %}">
-        <img src ="{{movie.image}}" style="width:15em;height:12em;">
-      </a>
+      <form   action="/movieDetail" method="post">
+        {% csrf_token %}
+        <input name="movie_id"  type="hidden" value='{{movie.id}}' class="input">
+        <input type = "image" src ="{{movie.image}}" onClick="submit"  style="width:15em;height:12em;">
+      </form>
+
+
         <form action="/addShowTime" method="post">
           {% csrf_token %}
           <p><input name="cinema" onblur="if (this.value == '') {this.value = 'Cinema';}" onfocus="this.value = '';" type="varchar" value="Cinema" class="input"></p>
@@ -75,9 +78,7 @@
           <p><input name="price" onblur="if (this.value == '') {this.value = 'Price';}" onfocus="this.value = '';" type="int" value="Price" class="input"></p>
           <p><input name="movie_id" onblur="if (this.value == '') {this.value = 'Movie_id';}" onfocus="this.value = '{{movie.id}}';" type="int" value="Moive_id" class="input"></p>
           <p><input type="submit" value="Submit" class="submit"></p>
-
         </form>
-
     </div>
     {% endfor %}
     <h3>新增飲食</h3>
@@ -92,5 +93,4 @@
       </div>
   </div>
 </div>
-
 {% endblock %}
