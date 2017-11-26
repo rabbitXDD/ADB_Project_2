@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block empty %}
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <h3>訂票紀錄</h3>
 <table>
   <thead>
@@ -27,7 +27,7 @@
       </td>
       <td>
         {% for seat in order.seat %}
-          {{ seat }}, 
+          {{ seat }},
          {% endfor %}
       </td>
       <td>
@@ -36,10 +36,24 @@
       {% endfor %}
       </td>
       <td>
-        {{ order.status }}
+        {% if order.status == 3 %}
+          已取消
+        {% elif order.status == 2 %}
+          付款完成
+        {% elif order.status == 1 %}
+          未付款
+        {% endif %}
       </td>
       <td>
-        <input type="button" value="cancel">
+        {% if order.status == 3 %}
+        {% else %}
+        <form action="/changeConfirm" method="post">
+          {% csrf_token %}
+          <p><input name="order_id"  type="hidden" value="{{order.id}}"></p>
+          <p><input name="status" type="hidden" value="3"></p>
+          <p><input type="submit" value="Cancel"></p>
+        </form>
+        {% endif %}
       </td>
     </tr>
     {% endfor %}

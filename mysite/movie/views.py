@@ -78,7 +78,7 @@ def logoutUser(request):
 def movieDetail(request):
     if request.POST:
         movie_id = request.POST['movie_id']
-    
+
     movie = Movie.objects.get(id=movie_id)
     # cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
     # rc = cursor.rowcount
@@ -105,11 +105,12 @@ def member(request):
     ordersList = []
     for order in orders:
         orderTmp = {
+            'id':order.id,
             'movie_name': order.showtimes.movie.name,
             'showtime': datetime.datetime.strftime(order.showtimes.showtime, '%Y-%m-%dT%H:%M:%S'),
             'seat': [seatOrder.seat.number for seatOrder in SeatsOrder.objects.filter(order=order)],
             'addition': [orderMeal.meal.name for orderMeal in OrderMeal.objects.filter(order=order)],
-            'status': 'Not confirmed',
+            'status': order.status,
         }
         ordersList.append(orderTmp)
 
@@ -203,12 +204,14 @@ def getShowTimes(request):
     for showtime in showtimes:
         s = """
             <div class="col-md-12">
-                <a href="#select_meals" onclick="showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
+                <a href="#select_meals" onclick="$('.showtimesGroup input:checkbox').prop('checked',false);showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
-                <br><input type="checkbox" value="1" id="showtimes_%s" name="showtimes">
+                <div class="showtimesGroup" style="">
+					<input type="checkbox" value="%s" id="showtimes_%s" name="showtimes">
+				</div>
             </div>
-        """ % (showtime.id, showtime.id, showtime.showtime.strftime("%Y-%m-%d %H:%M:%S"), showtime.id)
+        """ % (showtime.id, showtime.id, showtime.showtime.strftime("%Y-%m-%d %H:%M:%S"), showtime.id, showtime.id)
         div += s
 
     return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
@@ -303,3 +306,31 @@ def deleteShowtime(request):
         row.append([rows[0],info])
 
     return render(request,'moviedetail.html',{'movie':movie,'showtime':row})
+
+
+def changeConfirm(request):
+    if request.POST:
+        cid = request.POST['order_id']
+        status = request.POST['status']
+    print(cid)
+    order = Order.objects.get(id=cid)
+    order.status = status
+    order.save()
+
+
+    orders = Order.objects.filter(user=request.user)
+    ordersList = []
+    for order in orders:
+        orderTmp = {
+            'movie_name': order.showtimes.movie.name,
+            'showtime': datetime.datetime.strftime(order.showtimes.showtime, '%Y-%m-%dT%H:%M:%S'),
+            'seat': [seatOrder.seat.number for seatOrder in SeatsOrder.objects.filter(order=order)],
+            'addition': [orderMeal.meal.name for orderMeal in OrderMeal.objects.filter(order=order)],
+            'status': order.status,
+        }
+        ordersList.append(orderTmp)
+
+    context = {
+        'orders': ordersList,
+    }
+    return render(request,'member.html', context)
