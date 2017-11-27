@@ -1,24 +1,74 @@
 {% extends "base.html" %}
 {% block empty %}
+
+
+
+<script>
+
+	function order(url, id){
+		$.get( url, { showtimes_id: id } )
+			.done(function( data ) {
+				$("#showtimes_selection").empty();
+				$("#showtimes_selection").append(data);
+			});
+	};
+
+</script>
+<!--GO BACK BUTTON-->
+<button style="font-size: 17px;
+ cursor: pointer;
+ font-weight: 500;
+ margin: 27px 0 0 0px;
+ border-radius: 5px
+ -webkit-border-radius: 5px;
+ -moz-border-radius: 5px;
+ -o-border-radius: 5px;
+ -ms-border-radius: 5px;
+ padding: 9px 30px;
+ border: 2px solid #91cef7;
+ background: #91cef7;"><a style="color:#fff;font-family:Microsoft JhengHei" href="/manager">上一頁</a></button>
+
+<!--藍色橫幅-->
 {% if user.is_staff %}
-   <div class="container">
-     <button style="margin-top:0.5em;width:120px;height:40px;"><a href="/manager">上一頁</a></button>
+
+     <p style="width:100%;background:#3598db"><button style="
+      margin: 27px 0 0 0px;
+      border-radius: 5px;
+      margin: 1em 0 0 0px;
+      padding: 9px 30px;
+      border: 2px solid #3598db;
+      background:#3598db;"><a style="color:#3598db" href="/manager">上一頁</a></button></p>
    </div>
 {% else %}
 <div>
   <button><a href="/index">回首頁</a></button>
 </div>
 {% endif %}
+</div>
 
-<div style="color:#3598db;font-size:5em;margin-top:0.7em;text-align:center;">電影詳細資料 </div>
+<!--電影詳細資料-->
+<div style="color:#fff;
+font-family:Microsoft JhengHei;
+font-weight:bold;
+font-size:3em;
+width:100%;
+background:#3598db;
+text-align:center;">電影詳細資料 </div>
+
+<!--電影詳細資料內容-->
 <div class="container">
   <div class="col-md-4 touch-left">
-      <img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:8em;display:block;margin:auto;">
-      <p><h3 style="color:#3598db;font-size:1.5em;margin-top:0.7em;text-align:center;">{{movie.name}}</h3></p>
-      <p><h3 style="color:#27292b;font-size:1.3em;margin-top:0.7em;text-align:center;">電影類型:  {{movie.type}}</h3></p>
-      <p><h3 style="color:#27292b;font-size:1.3em;margin-top:0.7em;text-align:center;">撥放長度:  {{movie.runtime}}</h3></p>
-      <p><h3 style="color:#27292b;font-size:1.3em;margin-top:0.7em;text-align:center;">電影導演:  {{movie.director}}</h3></p>
-      <p><h3 style="color:#27292b;font-size:1.3em;margin-top:0.7em;text-align:center;">電影演員:  {{movie.actor}}</h3></p>
+      <img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:10em;display:block;margin:auto;">
+      <p><h3 style="color:#3598db;font-family:Microsoft JhengHei;
+				font-weight:bold;font-size:2em;margin-top:0.7em;text-align:center;">{{movie.name}}</h3></p>
+      <p><h3 style="color:#27292b;font-family:Microsoft JhengHei;
+			font-weight:bold;font-size:1.5em;margin-top:0.7em;text-align:center;">電影類型:  {{movie.type}}</h3></p>
+      <p><h3 style="color:#27292b;font-family:Microsoft JhengHei;
+			font-weight:bold;font-size:1.5em;margin-top:0.7em;text-align:center;">撥放長度:  {{movie.runtime}}</h3></p>
+      <p><h3 style="color:#27292b;font-family:Microsoft JhengHei;
+			font-weight:bold;font-size:1.5em;margin-top:0.7em;text-align:center;">電影導演:  {{movie.director}}</h3></p>
+      <p><h3 style="color:#27292b;font-family:Microsoft JhengHei;
+			font-weight:bold;font-size:1.5em;margin-top:0.7em;text-align:center;">電影演員:  {{movie.actor}}</h3></p>
 
 {% if user.is_staff %}
       <form action="/deleteMovie" method="post">
@@ -28,10 +78,11 @@
       </form>
 {% endif %}
   </div>
-  <div class="col-md-8 touch-right">
-    <h3 style="color:#27292b;font-size:1.3em;margin-top:0.7em;">現有場次</h3>
+  <div class="col-md-8 touch-right touch-left">
+    <h3 style="color:#3598db;font-family:Microsoft JhengHei;
+		font-weight:bold;font-size:2em;margin-top:0.7em;">現有場次</h3>
     {% for showtime in showtime %}
-      <br>{{showtime}}</br>
+      <br>{{showtime.1}}</br>
       {% if user.is_staff %}
         <form action="/deleteShowtime" method="post">
           {% csrf_token %}
@@ -39,10 +90,36 @@
           <p><input name="movie_id" type="hidden" value="{{movie.id}}"></p>
           <p><input type="submit" value="Delete"></p>
         </form>
+
+        <a href="#select_showtimes" onclick="order('getorder', '{{ showtime.0}}' );" class="scroll">
+          <button style="color:#fff;
+					 font-family:Microsoft JhengHei;
+					 font-size: 17px;
+					 cursor: pointer;
+					 font-weight: 500;
+					 margin: 27px 0 0 0px;
+					 border-radius: 5px
+					 -webkit-border-radius: 5px;
+					 -moz-border-radius: 5px;
+					 -o-border-radius: 5px;
+					 -ms-border-radius: 5px;
+					 padding: 9px 30px;
+					 border: 2px solid #91cef7;
+					 background: #91cef7;">Get Order</button>
+        </a>
       {% endif %}
     {% endfor %}
   </div>
-
+  <div calss="clearfix"></div>
 </div>
 
+<div class="gallery-info" style="display:block;">
+	<div class"container">
+		<h3 id="select_showtimes" style="color:#fff;font-weight:bold;font-family:Microsoft JhengHei;
+		font-size:2.5em;text-align:center;width:100%;background:#3598db;">現有訂單</h3>
+		<div calss="clearfix"></div>
+		<div id="showtimes_selection">
+		</div>
+	</div>
+</div>
 {% endblock %}

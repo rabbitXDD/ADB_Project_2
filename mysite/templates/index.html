@@ -4,8 +4,9 @@
 <div class="header">
 		<div class="container">
 			 <div class="banner-info">
-				 <h2 style="font-size=2em">歡迎蒞臨</h2>
-				 <p style="font-size=1.7em">讀paper、做報告、寫作業累了嗎？何不與親密的戰友們一同悠閒的看個電影，吃點東西，發點牢騷？心動不如馬上行動，快快訂票加入我們吧！</p>
+				 <h2 style="font-size=2em;font-family:Microsoft JhengHei;font-weight:bold">歡迎蒞臨</h2>
+				 <p style="font-size=1.7em;font-family:Microsoft JhengHei;
+				 font-weight:bold">讀paper、做報告、寫作業累了嗎？何不與親密的戰友們一同悠閒的看個電影，吃點東西，發點牢騷？心動不如馬上行動，快快訂票加入我們吧！</p>
 			 </div>
 			 <div class="clearfix"></div>
 		</div>
@@ -42,10 +43,10 @@ $(function() {
 	 <div class="container">
 			<h3>上映電影</h3>
 			{% for movie in movies %}
-				<div class="col-md-4">
+				<div class="col-md-4 touch-left">
 					<div class="margin-top:0.7em;display:inline-block">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
-						<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
+						<div style="color:#3598db;font-size:1.3em;font-family:Microsoft JhengHei;margin-top:0.7em;">{{movie.name}}</div>
 						<form   action="/movieDetail" method="post">
 			        {% csrf_token %}
 			        <input name="movie_id"  type="hidden" value='{{movie.id}}' class="input">
@@ -70,7 +71,8 @@ $(function() {
 					<a href="#select_showtimes" onclick="showtimes('showtimes', '{{ movie.id}}');$('.movieGroup input:checkbox').prop('checked',false);$('#movie_{{ movie.id }}').prop('checked', true);" class="scroll">
 						<img src ="{{movie.image}}" style="width:25em;height:35em;margin-top:3em">
 					</a>
-					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{movie.name}}</div>
+					<div style="color:#3598db;font-weight:bold;font-weight:bold;
+					font-size:1.3em;font-family:Microsoft JhengHei;margin-top:0.7em;">{{movie.name}}</div>
 				</div>
 				<div class="movieGroup" style="display:none">
 					<input type="checkbox" value="{{ movie.id }}" id="movie_{{ movie.id }}" name="movie">
@@ -85,7 +87,8 @@ $(function() {
 
 <div class="gallery-info" style="display:block;">
 	<div class"container">
-		<h3 id="select_showtimes" style="color:#3598db;font-size:2.5em; text-align:center">場次選擇</h3>
+		<h3 id="select_showtimes" style="color:#3598db;font-family:Microsoft JhengHei;
+		font-weight:bold;font-size:2.5em; text-align:center">場次選擇</h3>
 		<div calss="clearfix"></div>
 		<div id="showtimes_selection">
 		</div>
@@ -95,13 +98,15 @@ $(function() {
 
 		<div class="gallery-info" style="display:block;">
 			<div class"container">
-				<h3 id="select_meals" style="color:#3598db;font-size:2.5em; text-align:center">飲食/套餐選擇</h3>
+				<h3 id="select_meals" style="color:#3598db;font-family:Microsoft JhengHei;
+				font-weight:bold;font-size:2.5em;text-align:center">飲食/套餐選擇</h3>
 			{% for meal in meals %}
 				<div class="col-md-12">
 					<a href="#select_seats" onclick="$('#meal_{{ meal.id }}').prop('checked', true);" class="scroll">
 						<img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXDVcbFcWCMeIjCm2LqVE0RcMlfZ25zhYurrZPIDeunECugqLL" style="width:15em;height:12em;">
 					</a>
-					<div style="color:#3598db;font-size:1.5em;font-family:'Dosis-Medium.ttf';margin-top:0.7em;">{{ meal.name }}</div>
+					<div style="color:#3598db;font-weight:bold;
+					font-size:1.5em;font-family:Microsoft JhengHei;margin-top:0.7em;">{{ meal.name }}</div>
 					<br><input type="checkbox" value="{{ meal.id }}" id="meal_{{ meal.id }}" name="meal">
 					<div calss="clearfix"></div>
 				</div>
@@ -109,17 +114,33 @@ $(function() {
 		</div>
 
 			{% endfor %}
-
+<div class="container">
 		<div class="gallery-info" style="display:block;" id="seats" style="display:block;">
-			<h3 id="select_seats" style="color:#3598db;font-size:2.5em; text-align:center">座位選擇</h3>
+			<h3 id="select_seats" style="color:#3598db;font-family:Microsoft JhengHei;
+			font-weight:bold;font-size:2.5em; text-align:center">座位選擇</h3>
 			<div class="clearfix"> </div>
 		</div>
+	</div>
 
 <!---->
+
 <div id="blog" class="blog">
 	<div class="container">
 		<div class="banner-info">
-				<button type="submit">完成訂票</button>
+			<button style="color:#fff;
+			 font-family:Microsoft JhengHei;
+			 font-size: 17px;
+			 cursor: pointer;
+			 font-weight: 500;
+			 margin: 27px 0 0 0px;
+			 border-radius: 5px;
+			 -webkit-border-radius: 5px;
+			 -moz-border-radius: 5px;
+			 -o-border-radius: 5px;
+			 -ms-border-radius: 5px;
+			 padding: 9px 30px;
+			 border: 2px solid #91cef7;
+			 background: #91cef7;" type="submit">完成訂票</button>
 		 </div>
 	</div>
 </div>

@@ -135,6 +135,11 @@ span.menu {
 label{
 	 font-weight:normal;
 }
+/*--information--*/
+.touch-left button a{
+
+}
+
 /*--service // SHOW TIMES SELECT--*/
 .service{
 	padding:5em 0;
@@ -214,8 +219,9 @@ label{
 }
 .about-right h3,.service h3,.gallery h3,.blog h3,.contact h3{
 	color:#3598db;
+  font-weight: bold;
 	font-size:2.5em;
-	font-family: 'Dosis-bold';
+	font-family: 'Microsoft JhengHei';
 	text-align:center;
 }
 .about-right{

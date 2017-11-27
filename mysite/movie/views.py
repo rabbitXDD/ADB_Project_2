@@ -334,3 +334,39 @@ def changeConfirm(request):
         'orders': ordersList,
     }
     return render(request,'member.html', context)
+
+def getOrder(request):
+    showtimesId = request.GET['showtimes_id']
+    orders = Order.objects.filter(showtimes_id = showtimesId)
+
+    div = ""
+
+    for order in orders:
+        s = """
+        <table>
+          <thead>
+            <tr>
+              <th>Order id</th>
+              <th>  Seat</th>
+              <th>  Meal/Combo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+          <td>
+            %s
+          </td>
+          <td>
+            %s
+          </td>
+          <td>
+          %s
+          </td>
+
+        </tr>
+     </tbody>
+        """  % (order.id, order.user_id, order.combo_id)
+
+        div += s
+
+    return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
