@@ -338,10 +338,18 @@ def changeConfirm(request):
 def getOrder(request):
     showtimesId = request.GET['showtimes_id']
     orders = Order.objects.filter(showtimes_id = showtimesId)
-
+    UNCONFIRMED = 1
+    CONFIREMD = 2
+    CANCELED = 3
     div = ""
 
     for order in orders:
+        if order.status == UNCONFIRMED:
+            status = "unconfirmed"
+        elif order.status == CONFIREMD:
+            status = "confirmed"
+        else:
+            status = "canceled"
         s = """
         <table>
           <thead>
@@ -349,6 +357,8 @@ def getOrder(request):
               <th>Order id</th>
               <th>  Seat</th>
               <th>  Meal/Combo</th>
+              <th> Status </th>
+              <th> </th>
             </tr>
           </thead>
           <tbody>
@@ -362,11 +372,38 @@ def getOrder(request):
           <td>
           %s
           </td>
+          <td>
+          %s
+          </td>
+          <td>
+            <form action="editorderstatus/" method="get">
+                <input name="order_id" style="display:none" value="%s">
+                <input name="status" style="display:none" value="%s">
+                <input type="submit" class="btn btn-primary" value="Confirm">
+            </form>
+            <form action="editorderstatus/" method="get">
+                <input name="order_id" style="display:none" value="%s">
+                <input name="status" style="display:none" value="%s">
+                <input type="submit" class="btn btn-danger" value="Canceled">
+            </form>
+
+          </td>
 
         </tr>
      </tbody>
-        """  % (order.id, order.user_id, order.combo_id)
+        """  % (order.id, order.user_id, order.combo_id, status, order.id, CONFIREMD, order.id, CANCELED)
 
         div += s
 
     return HttpResponse(json.dumps(div.strip('\n')), content_type="application/json")
+
+def editOrderStatus(request):
+    if request.GET:
+        order_id = request.GET['order_id']
+        status = request.GET['status']
+        
+        order = Order.objects.filter(id=order_id)[0]
+        order.status = int(status)
+        order.save()
+    
+    return HttpResponseRedirect('/manager')

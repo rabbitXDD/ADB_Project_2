@@ -35,6 +35,7 @@ from movie.views import deleteMovie
 from movie.views import deleteShowtime
 from movie.views import changeConfirm
 from movie.views import getOrder
+from movie.views import editOrderStatus
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
@@ -62,5 +63,6 @@ urlpatterns += patterns('',
         url(r'^deleteShowtime',deleteShowtime,name="deleteShowtime"),
         url(r'^changeConfirm',changeConfirm,name="changeConfirm"),
         url(r'^getorder',getOrder,name="getOrder"),
+        url(r'^editorderstatus', editOrderStatus, name="editOrderStatus"),
         url(r'', index),
 )
