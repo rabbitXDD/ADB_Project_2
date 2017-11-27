@@ -1,41 +1,65 @@
 {% extends "base.html" %}
 {% block empty %}
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<h3>訂票紀錄</h3>
-<table>
+
+
+<div id="preview" class="gallery">
+	 <div class="container">
+     <h3 style="margin-top:80px">訂票紀錄</h3>
+  </div>
+</div>
+
+
+<table style="border:5px #095487 solid;border-collapse: collapse;
+margin-left:auto;margin-right:auto;text-align:center;">
   <thead>
     <tr>
-      <th>Movie name</th>
-      <th>Showtimes</th>
-      <th>Seat</th>
-      <th>Meal/Combo</th>
-      <th>Status</th>
+      <th style="color:#005691;font-family:Microsoft JhengHei;
+  		font-weight:bold;font-size:2em;text-align:center;background:#b9def7">電影名稱</th>
+      <th style="color:#005691;font-family:Microsoft JhengHei;
+  		font-weight:bold;font-size:2em;text-align:center;background:#b9def7">電影場次</th>
+      <th style="color:#005691;font-family:Microsoft JhengHei;
+  		font-weight:bold;font-size:2em;text-align:center;background:#b9def7">座位號碼</th>
+      <th style="color:#005691;font-family:Microsoft JhengHei;
+  		font-weight:bold;font-size:2em;text-align:center;background:#b9def7">餐點</th>
+      <th style="color:#005691;font-family:Microsoft JhengHei;
+  		font-weight:bold;font-size:2em;text-align:center;background:#b9def7" >訂單狀況</th>
+      <th style="color:#b9def7;font-family:Microsoft JhengHei;
+  		font-weight:bold;font-size:2em;text-align:center;background:#b9def7" >Action</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td colspan="4"><hr> </td>
-    </tr>
+  <tbody style="border:5px #095487 solid;border-collapse: collapse;
+  margin-left:auto;margin-right:auto;text-align:center">
+
 
     {% for order in orders %}
-    <tr>
+      <tr style="border:5px #095487 solid;border-collapse: collapse;
+      margin-left:auto;margin-right:auto;text-align:center">
       <td>
-        {{ order.movie_name }}
+        <a style="color:#3598db;font-family:Microsoft JhengHei;
+    		font-weight:bold;font-size:2em;text-align:center">{{ order.movie_name }}</a>
       </td>
-      <td>
-        {{ order.showtime }}
+      <td style="border:5px #095487 solid;border-collapse: collapse;
+      margin-left:auto;margin-right:auto;text-align:center">
+        <a style="color:#3598db;font-family:Microsoft JhengHei;
+    		font-weight:bold;font-size:2em;text-align:center">{{ order.showtime }}</a>
       </td>
-      <td>
+      <td style="border:5px #095487 solid;border-collapse: collapse;
+      margin-left:auto;margin-right:auto;text-align:center">
         {% for seat in order.seat %}
-          {{ seat }},
+          <a style="color:#3598db;font-family:Microsoft JhengHei;
+      		font-weight:bold;font-size:2em;text-align:center">{{ seat }}</a>,
          {% endfor %}
       </td>
-      <td>
+      <td style="border:5px #095487 solid;border-collapse: collapse;
+      margin-left:auto;margin-right:auto;text-align:center">
       {% for addition in order.addition %}
-       {{ addition }}
+       <a style="color:#3598db;font-family:Microsoft JhengHei;
+       font-weight:bold;font-size:2em;text-align:center">{{ addition }}</a>
       {% endfor %}
       </td>
-      <td>
+      <td style="color:#3598db;font-family:Microsoft JhengHei;
+      font-weight:bold;font-size:2em;text-align:center">
         {% if order.status == 3 %}
           已取消
         {% elif order.status == 2 %}
@@ -46,7 +70,9 @@
       </td>
       <td>
         {% if order.status == 3 %}
+
         {% else %}
+        <div class="touch-left">
         <form action="/changeConfirm" method="post">
           {% csrf_token %}
           <p><input name="order_id"  type="hidden" value="{{order.id}}"></p>
@@ -56,10 +82,10 @@
         {% endif %}
       </td>
     </tr>
+  </div>
     {% endfor %}
-
   </tbody>
-
 </table>
 
+<div style="margin-top:100px"></div>
 {% endblock %}

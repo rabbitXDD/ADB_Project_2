@@ -28,6 +28,18 @@
  border: 2px solid #91cef7;
  background: #91cef7;"><a style="color:#fff;font-family:Microsoft JhengHei" href="/manager">上一頁</a></button>
 
+ <button style="font-size: 17px;
+  cursor: pointer;
+  font-weight: 500;
+  margin: 27px 0 0 0px;
+  border-radius: 5px
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  padding: 9px 30px;
+  border: 2px solid #91cef7;
+  background: #91cef7;"><a style="color:#fff;font-family:Microsoft JhengHei" href="/index">回首頁</a></button>
 <!--藍色橫幅-->
 {% if user.is_staff %}
 
@@ -40,9 +52,7 @@
       background:#3598db;"><a style="color:#3598db" href="/manager">上一頁</a></button></p>
    </div>
 {% else %}
-<div>
-  <button><a href="/index">回首頁</a></button>
-</div>
+
 {% endif %}
 </div>
 
