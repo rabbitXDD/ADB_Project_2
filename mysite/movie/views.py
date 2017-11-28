@@ -295,8 +295,9 @@ def deleteMovie(request):
     }
     if request.POST:
         id = request.POST['movie_id']
-        cursor.execute("DELETE FROM movie WHERE id = %s" %(id))
-        db.commit()
+        Movie.objects.filter(id=id).delete()
+        # cursor.execute("DELETE FROM movie WHERE id = %s" %(id))
+        # db.commit()
 
     return render(request,'manager.html',context)
 
@@ -304,18 +305,27 @@ def deleteShowtime(request):
 
     if request.POST:
         sid = request.POST['showtime_id']
-        cursor.execute("DELETE FROM showtimes WHERE id = %s" % (sid))
-        db.commit()
+        Showtimes.objects.filter(id = sid).delete()
+        # cursor.execute("DELETE FROM showtimes WHERE id = %s" , (sid))
+        # db.commit()
 
     movie_id = request.POST['movie_id']
     movie = Movie.objects.get(id=movie_id)
-    cursor.execute("SELECT * FROM showtimes WHERE movie_id = %s",(movie_id))
-    rc = cursor.rowcount
     row=[]
-    for i in range(0,rc):
-        rows = cursor.fetchone()
-        info = "Cinema:" + rows[1] +"  Showtime:"+str(rows[2])+"  Price:"+str(rows[3])
-        row.append([rows[0],info])
+    showtimes = Showtimes.objects.filter(movie=movie)
+    for showtime in showtimes:
+        info = "Cinema:" + showtime.cinema +"  Showtime:"+str(showtime.showtime)+"  Price:"+str(showtime.price)
+        row.append([showtime.id, info])
+        checkseat = Seat.objects.filter(showtimes_id =showtime.id)
+        if checkseat:
+            pass
+        else:
+            for i in range(1,5):
+                seat = Seat(
+                    number = i,
+                    showtimes_id = showtime.id,
+                )
+                seat.save()
 
     return render(request,'moviedetail.html',{'movie':movie,'showtime':row})
 
