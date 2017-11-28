@@ -95,6 +95,16 @@ def movieDetail(request):
     for showtime in showtimes:
         info = "Cinema:" + showtime.cinema +"  Showtime:"+str(showtime.showtime)+"  Price:"+str(showtime.price)
         row.append([showtime.id, info])
+        checkseat = Seat.objects.filter(showtimes_id =showtime.id)
+        if checkseat:
+            pass
+        else:
+            for i in range(1,5):
+                seat = Seat(
+                    number = i,
+                    showtimes_id = showtime.id,
+                )
+                seat.save()
 
     print(row)
 
@@ -253,6 +263,8 @@ def addShowTimes(request):
             movie_id = movie_id
         )
         showtimes.save()
+
+
     return render(request,'manager.html',context)
 
 def addMeal(request):
@@ -401,9 +413,9 @@ def editOrderStatus(request):
     if request.GET:
         order_id = request.GET['order_id']
         status = request.GET['status']
-        
+
         order = Order.objects.filter(id=order_id)[0]
         order.status = int(status)
         order.save()
-    
+
     return HttpResponseRedirect('/manager')
