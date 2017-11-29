@@ -11,7 +11,7 @@ from django.contrib.auth import logout, login
 from django.contrib.auth import authenticate
 import MySQLdb
 
-from movie.models import Movie, Showtimes, Meal, Seat, Order, Combo, OrderMeal, SeatsOrder
+from movie.models import Movie, Showtimes, Meal, Seat, Order, Combo, OrderMeal, SeatsOrder, Combo_Meal
 
 db = MySQLdb.connect(host="140.119.19.73",    user="admin", passwd="12345678", db="orm_booking_movie")
 cursor = db.cursor()
@@ -217,7 +217,7 @@ def getShowTimes(request):
                 <a href="#select_meals" onclick="$('.showtimesGroup input:checkbox').prop('checked',false);showSeats('showseats', %s);$('#showtimes_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
-                <div class="showtimesGroup" style="">
+                <div class="showtimesGroup" style="display:none">
 					<input type="checkbox" value="%s" id="showtimes_%s" name="showtimes">
 				</div>
             </div>
@@ -234,7 +234,7 @@ def getSeats(request):
     for seat in seats:
         s = """
             <div class="col-md-1">
-                <a href="#blog" onclick="$('#seats_%s').prop('checked', true);" class="scroll btn btn-default">
+                <a href="" onclick="$('#seats_%s').prop('checked', true);" class="scroll btn btn-default">
                     %s
                 </a>
                 <br><input type="checkbox" value="%s" id="seats_%s" name="seats">
@@ -372,14 +372,27 @@ def getOrder(request):
             status = "confirmed"
         else:
             status = "canceled"
+
+        orderMeals = OrderMeal.objects.filter(order=order)
+        combos = Combo.objects.filter(movie=order.showtimes.movie)
+
+        if orderMeals:
+            mealsList = "".join([orderMeal.meal.name for orderMeal in orderMeals])
+        else:
+            mealsList = ""
+        if combos:
+            combosList = "".join([combo.name for combo in combos])
+        else:
+            combosList = ""
+
         s = """
-        <table>
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>Order id</th>
-              <th>  Seat</th>
-              <th>  Meal/Combo</th>
-              <th> Status </th>
+              <th>User email</th>
+              <th>Meal/Combo</th>
+              <th>Status </th>
               <th> </th>
             </tr>
           </thead>
@@ -413,7 +426,7 @@ def getOrder(request):
 
         </tr>
      </tbody>
-        """  % (order.id, order.user_id, order.combo_id, status, order.id, CONFIREMD, order.id, CANCELED)
+        """  % (order.id, order.user.email, mealsList + combosList, status, order.id, CONFIREMD, order.id, CANCELED)
 
         div += s
 

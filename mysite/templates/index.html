@@ -107,7 +107,8 @@ $(function() {
 					</a>
 					<div style="color:#3598db;font-weight:bold;
 					font-size:1.5em;font-family:Microsoft JhengHei;margin-top:0.7em;">{{ meal.name }}</div>
-					<br><input type="checkbox" value="{{ meal.id }}" id="meal_{{ meal.id }}" name="meal">
+
+					<br><input type="checkbox" value="{{ meal.id }}" id="meal_{{ meal.id }}" name="meal" style="display:none;">
 					<div calss="clearfix"></div>
 				</div>
 			</div>
@@ -115,10 +116,10 @@ $(function() {
 
 			{% endfor %}
 <div class="container">
-		<div class="gallery-info" style="display:block;" id="seats" style="display:block;">
+		<div class="gallery-info" style="display:block;" style="display:block;">
 			<h3 id="select_seats" style="color:#3598db;font-family:Microsoft JhengHei;
 			font-weight:bold;font-size:2.5em; text-align:center">座位選擇</h3>
-			<div class="clearfix"> </div>
+			<div class="clearfix" id="seats"> </div>
 		</div>
 	</div>
 

@@ -76,6 +76,7 @@ class Seat(models.Model):
         db_table = 'seat'
 
 class Combo(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True)
     movie = models.ForeignKey('Movie')
     price = models.CharField(max_length=20)
 
@@ -105,6 +106,7 @@ class Order(models.Model):
         default=UNCOMFIRMED,
     )
     combo = models.ForeignKey('Combo', null=True, blank=True)
+
     
 class OrderMeal(models.Model):
     meal = models.ForeignKey('Meal')
