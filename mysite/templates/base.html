@@ -54,13 +54,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li style=" margin-right:0"><a class="scroll" href="#contact" >聯絡我們</a></li>
 					{% if user.is_staff or perms.partner.dashboard_access %}
 						<li><a href="{% url "manager" %}" style="margin-left:19em;"><i class="icon-list-ul"></i> Dashboard </a></li>
-          {% else %}
-            <li style="color:#fff">11111111111111111111111111111111</li>
+    				{% else %}
+            		<li style="color:#fff">111111111111111111111111111111111111111111111111111111111111111111111111111</li>
 
 					{% endif %}
-					<li><a href="#">
-						<img src="{% static "images/user-icon.png" %}"></img>
-						{% if request.user.username %}
+			{% if request.user.username %}
               {% if user.is_staff %}
 							       {{ request.user.username}}
               {% else %}

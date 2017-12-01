@@ -64,28 +64,28 @@ class Showtimes(models.Model):
     cinema = models.CharField(max_length=10)
     showtime = models.DateTimeField()
     price = models.IntegerField(default=200)
-    movie = models.ForeignKey('Movie')
+    movie = models.ForeignKey('Movie', db_index=True)
     class Meta:
         db_table = 'showtimes'
 
 class Seat(models.Model):
-    showtimes = models.ForeignKey('Showtimes')
+    showtimes = models.ForeignKey('Showtimes', db_index=True)
     number = models.IntegerField(default=1)
 
     class Meta:
         db_table = 'seat'
 
 class Combo(models.Model):
-    name = models.CharField(max_length=256, null=True, blank=True)
-    movie = models.ForeignKey('Movie')
+    name = models.CharField(max_length=256, null=True)
+    movie = models.ForeignKey('Movie', db_index=True)
     price = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'combo'
 
 class Combo_Meal(models.Model):
-    combo = models.ForeignKey('Combo')
-    meal = models.ForeignKey('Meal')
+    combo = models.ForeignKey('Combo', db_index=True)
+    meal = models.ForeignKey('Meal', db_index=True)
 
 class Order(models.Model):
     
@@ -99,22 +99,22 @@ class Order(models.Model):
         (CANCELED, 'Canceled'),
     )
 
-    showtimes = models.ForeignKey('Showtimes')
-    user = models.ForeignKey('User')
+    showtimes = models.ForeignKey('Showtimes', db_index=True)
+    user = models.ForeignKey('User', db_index=True)
     status = models.IntegerField(
         choices=ORDER_STATUS_CHOICES,
         default=UNCOMFIRMED,
     )
-    combo = models.ForeignKey('Combo', null=True, blank=True)
+    combo = models.ForeignKey('Combo', null=True, blank=True, db_index=True)
 
     
 class OrderMeal(models.Model):
-    meal = models.ForeignKey('Meal')
-    order = models.ForeignKey('Order')
+    meal = models.ForeignKey('Meal', db_index=True)
+    order = models.ForeignKey('Order', db_index=True)
 
 class SeatsOrder(models.Model):
-    seat = models.ForeignKey('Seat')
-    order = models.ForeignKey('Order')
+    seat = models.ForeignKey('Seat', db_index=True)
+    order = models.ForeignKey('Order', db_index=True)
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
@@ -128,13 +128,3 @@ class Customer(models.Model):
     class Meta:
         managed = False
         db_table = 'customer'
-
-
-
-
-
-
-
-
-
-
